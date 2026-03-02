@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import { siteConfig } from "@/lib/data"
+import { siteConfig } from "@/lib/site-config"
 import "./globals.css"
 
 const inter = Inter({
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#1A1A1A",
+  themeColor: "#131625",
 }
 
 export default function RootLayout({

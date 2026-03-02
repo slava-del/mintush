@@ -5,22 +5,22 @@
 
 :root {
   /* ── Paper / Ink ── */
-  --paper: #F5F2ED;
-  --ink: #1A1A1A;
-  --muted: #8A8478;
-  --accent: #1B4FD8;
-  --accent-hover: #1642B5;
+  --paper: #FFFFFF;
+  --ink: #131625;
+  --muted: #56607a;
+  --accent: #C7A37E;
+  --accent-hover: #af8b65;
 
   /* ── Semantic tokens ── */
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: #EFECE6;
+  --card: #F3F6FB;
   --card-foreground: var(--ink);
   --popover: var(--paper);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--paper);
-  --secondary: #E8E4DC;
+  --secondary: #E9EEF8;
   --secondary-foreground: var(--ink);
   --muted-color: var(--muted);
   --muted-foreground: var(--muted);
@@ -28,8 +28,8 @@
   --accent-foreground: #FFFFFF;
   --destructive: #B91C1C;
   --destructive-foreground: #FFFFFF;
-  --border: #D6D1C9;
-  --input: #D6D1C9;
+  --border: #D0D8E7;
+  --input: #D0D8E7;
   --ring: var(--accent);
 
   /* ── Type Scale (clamp) ── */

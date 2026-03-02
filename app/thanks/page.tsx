@@ -3,10 +3,9 @@ import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Signature } from "@/components/signature"
-import { mentor } from "@/lib/data"
 
 export const metadata: Metadata = {
-  title: "Спасибо — " + mentor.name,
+  title: "Спасибо — OLEG MINTUSH",
   description: "Мы получили вашу заявку.",
 }
 
@@ -22,24 +21,24 @@ export default function ThanksPage() {
               Спасибо
             </h1>
             <p className="text-h3 text-primary-foreground/50 mb-4 max-w-xl leading-relaxed">
-              Мы отправим вам программу мини-курсов и пример материалов в ближайшее время.
+              Мы отправим вам детали участия и следующий шаг в ближайшее время.
             </p>
             <p className="text-body-lg text-primary-foreground/30 mb-12 max-w-lg">
-              Пока вы ждете, можете ознакомиться с подходом наставника или посмотреть доступные курсы.
+              Пока вы ждете, можно перейти к наставничеству или мини-курсам.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-16">
               <Link
-                href="/about"
+                href="/adviser"
                 className="inline-flex items-center justify-center px-8 py-4 border border-primary-foreground/20 text-primary-foreground text-small tracking-wide hover:bg-primary-foreground/5 transition-colors"
               >
-                О наставнике
+                Персональный стратег
               </Link>
               <Link
-                href="/courses"
+                href="/education"
                 className="inline-flex items-center justify-center px-8 py-4 border border-primary-foreground/20 text-primary-foreground text-small tracking-wide hover:bg-primary-foreground/5 transition-colors"
               >
-                Каталог курсов
+                Мини-курсы
               </Link>
             </div>
 
