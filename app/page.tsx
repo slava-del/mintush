@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { LeadForm } from "@/components/lead-form"
+import { GptVsSystemSection } from "@/components/home/gpt-vs-system-section"
 import { mentorSummary, trustedCompanies } from "@/lib/site-config"
 
 export const metadata: Metadata = {
@@ -148,9 +149,11 @@ export default function HomePage() {
           </div>
         </section>
 
+        <GptVsSystemSection />
+
         <section className="px-6 md:px-10 lg:px-16 py-24 md:py-32 bg-card">
           <div className="max-w-6xl mx-auto">
-            <p className="text-caption text-muted-foreground mb-6">3 экран</p>
+            <p className="text-caption text-muted-foreground mb-6">4 экран</p>
             <h2 className="text-h1 font-serif text-foreground mb-4 text-balance">
               Мы предлагаем решение и три уровня управленческой зрелости
             </h2>
@@ -184,7 +187,7 @@ export default function HomePage() {
         <section className="px-6 md:px-10 lg:px-16 py-24 md:py-32">
           <div className="max-w-5xl grid gap-10 lg:grid-cols-2 lg:items-start">
             <div>
-              <p className="text-caption text-muted-foreground mb-6">4 экран</p>
+              <p className="text-caption text-muted-foreground mb-6">5 экран</p>
               <h2 className="text-h1 font-serif text-foreground mb-6">Мини-курсы для руководителей</h2>
               <p className="text-body-lg text-foreground/75 leading-relaxed">
                 Руководитель не должен быть экспертом в финансах, логистике и прочих бизнес-функциях. Но руководитель обязан знать их базовые принципы работы, чтобы понимать как выстраивать бизнес-систему, как ставить задачи и как добиваться бизнес-результата.
@@ -206,7 +209,7 @@ export default function HomePage() {
 
         <section className="px-6 md:px-10 lg:px-16 py-24 md:py-32 bg-foreground text-primary-foreground">
           <div className="max-w-5xl">
-            <p className="text-caption text-primary-foreground/40 mb-6">5 экран</p>
+            <p className="text-caption text-primary-foreground/40 mb-6">6 экран</p>
             <h2 className="text-h1 font-serif text-primary-foreground mb-6">Архитектура бизнеса</h2>
             <p className="text-body-lg text-primary-foreground/70 leading-relaxed max-w-4xl">
               В вашей компании случилась проблема. Растить внутренние компетенции или нанимать экспертов с рынка это всегда долго.
@@ -234,7 +237,7 @@ export default function HomePage() {
 
         <section className="px-6 md:px-10 lg:px-16 py-24 md:py-32">
           <div className="max-w-6xl mx-auto">
-            <p className="text-caption text-muted-foreground mb-6">6 экран</p>
+            <p className="text-caption text-muted-foreground mb-6">7 экран</p>
             <h2 className="text-h1 font-serif text-foreground mb-10">Нам доверяют</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {trustedCompanies.map((company) => (

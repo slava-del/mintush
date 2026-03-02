@@ -3,14 +3,16 @@ export function GptVsSystemSection() {
     <section className="px-6 md:px-10 lg:px-16 py-24 md:py-32 lg:py-40 bg-foreground text-primary-foreground">
       <div className="max-w-6xl mx-auto">
         {/* Caption */}
-        <p className="text-caption text-primary-foreground/30 mb-6">Подход</p>
+        <p className="text-caption text-primary-foreground/30 mb-6">3 экран</p>
 
         {/* Headline */}
         <h2 className="text-h1 font-serif text-primary-foreground mb-16 md:mb-24 text-balance max-w-4xl">
-          GPT дает ответы.
-          <br />
-          Управление требует системы.
+          GPT-чат может ответить на любой ваш вопрос.
+          <br />Но умеете ли вы правильно спросить и применить ответ?
         </h2>
+        <p className="text-body-lg text-primary-foreground/60 mb-12 max-w-3xl">
+          Уверены ли вы, что не умея «ездить на велосипеде», получится с первого раза?
+        </p>
 
         {/* Two panels */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-primary-foreground/10">
@@ -19,7 +21,7 @@ export function GptVsSystemSection() {
             <div className="flex flex-col gap-4">
               <span className="text-caption text-primary-foreground/30">Без системы</span>
               <p className="text-h2 font-serif text-primary-foreground/90">
-                Ответы без структуры
+                Ответ есть, результата нет
               </p>
             </div>
 
@@ -33,7 +35,7 @@ export function GptVsSystemSection() {
             </svg>
 
             <p className="text-body-lg text-primary-foreground/40 max-w-sm">
-              Ручное вмешательство. Каждый раз заново. Без гарантии результата.
+              Менеджеры получают идею, но не знают, как применить ее в операционке и довести до результата.
             </p>
           </div>
 
@@ -42,7 +44,7 @@ export function GptVsSystemSection() {
             <div className="flex flex-col gap-4">
               <span className="text-caption text-accent">С системой</span>
               <p className="text-h2 font-serif text-primary-foreground/90">
-                Шаги + шаблоны + разбор
+                Погружение + практика + уверенность
               </p>
             </div>
 
@@ -58,7 +60,7 @@ export function GptVsSystemSection() {
             </svg>
 
             <p className="text-body-lg text-primary-foreground/60 max-w-sm">
-              Предсказуемость. Система работает независимо от того, кто ей управляет.
+              Ваша уникальная возможность: погрузиться в мир управления, подсмотреть у других и стать увереннее.
             </p>
           </div>
         </div>
