@@ -3,7 +3,16 @@
 import { useMemo, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { ChevronDown, Menu } from "lucide-react"
 import { contactConfig, primaryNav, type NavItem } from "@/lib/site-config"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type SiteHeaderProps = {
   ctaHref?: string
@@ -26,28 +35,14 @@ export function SiteHeader({
   const items = useMemo(() => navItems ?? primaryNav, [navItems])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
-      <nav className="flex items-center justify-between px-6 py-5 md:px-10 lg:px-16">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#131625]/85 backdrop-blur-md border-b border-white/10">
+      <nav className="flex items-center px-6 py-4 md:px-10 lg:px-16">
         <Link href="/" className="text-white font-serif text-xl tracking-tight flex items-baseline gap-3">
           <span>OM</span>
           <span className="hidden sm:inline text-small tracking-[0.12em]">OLEG MINTUSH</span>
         </Link>
 
-        <div className="hidden xl:flex items-center gap-6">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-small tracking-wide transition-opacity ${
-                isActive(pathname, item.href) ? "text-white" : "text-white/60 hover:text-white"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden md:flex items-center gap-4 ml-auto">
           <a
             href={contactConfig.telegramUrl}
             target="_blank"
@@ -58,16 +53,64 @@ export function SiteHeader({
           </a>
           <a
             href={`mailto:${contactConfig.email}`}
-            className="text-small text-white/75 hover:text-white transition-colors"
+            className="text-small text-white/75 hover:text-white transition-colors hidden xl:inline"
           >
             Почта
           </a>
           <Link
             href={ctaHref}
-            className="text-small text-white border border-white/35 px-5 py-2 hover:bg-white/10 transition-colors"
+            className="text-small text-white border border-white/35 px-5 py-2 hover:bg-white/10 transition-colors hidden lg:inline-flex"
           >
             {ctaLabel}
           </Link>
+
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 text-white/90 text-small px-2 py-1"
+            aria-label="Выбор языка"
+          >
+            RU
+            <ChevronDown className="size-3.5 opacity-80" />
+          </button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                aria-label="Открыть навигацию"
+                className="inline-flex items-center justify-center border border-white/35 text-white h-10 w-10 hover:bg-white/10 transition-colors ml-1"
+              >
+                <Menu className="size-5" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-72 border-white/20 bg-[#131625] text-white"
+            >
+              <DropdownMenuLabel className="text-white/70">
+                Навигация
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-white/15" />
+              {items.map((item) => {
+                const itemActive = isActive(pathname, item.href)
+                return (
+                  <DropdownMenuItem
+                    key={item.href}
+                    asChild
+                    className={`cursor-pointer ${
+                      itemActive
+                        ? "bg-white/15 text-white focus:bg-white/15 focus:text-white"
+                        : "text-white/85 focus:bg-white/10 focus:text-white"
+                    }`}
+                  >
+                    <Link href={item.href} className="flex w-full items-center justify-between">
+                      <span>{item.label}</span>
+                      {itemActive && <span className="text-caption text-accent">текущая</span>}
+                    </Link>
+                  </DropdownMenuItem>
+                )
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <button
