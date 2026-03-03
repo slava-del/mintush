@@ -76,7 +76,7 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
     >
       <div className="relative h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] flex-none overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute right-0 top-[16%] h-[100%] w-[51%] min-w-[420px] origin-bottom scale-[1.18]">
+          <div className="absolute right-0 top-[16%] hidden h-[100%] w-[51%] min-w-[420px] origin-bottom scale-[1.18] md:block">
             <Image
               src="/profile.png"
               alt="Олег Минтуш"
@@ -125,7 +125,7 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 z-10 px-6 pb-10 md:px-10 md:pb-12">
+        <div className="absolute bottom-0 left-0 z-10 px-6 pb-40 sm:pb-28 md:px-10 md:pb-12">
           <div className="max-w-[760px]">
             <p
               className="font-semibold text-white leading-[1.08]"
@@ -138,10 +138,10 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
           </div>
         </div>
 
-        <div className="absolute bottom-6 right-6 z-20 flex flex-col items-end gap-2.5 md:bottom-8 md:right-10">
+        <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-col items-stretch gap-2.5 md:bottom-8 md:left-auto md:right-10 md:items-end">
           <a
             href="/basis"
-            className="group inline-flex items-center gap-3 rounded-[18px] bg-[#e7d2ad] px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.45)] ring-1 ring-black/10 hover:translate-y-[-1px] transition"
+            className="group inline-flex w-full items-center justify-between gap-3 rounded-[18px] bg-[#e7d2ad] px-5 py-4 shadow-[0_18px_50px_rgba(0,0,0,0.45)] ring-1 ring-black/10 transition hover:translate-y-[-1px] md:w-auto md:justify-start"
           >
             <span className="leading-[1.05] text-[13px] md:text-[14px] font-semibold text-black/90">
               Посмотреть
@@ -165,7 +165,7 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
             href="https://t.me/mintush_business"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-[14px] border border-white/20 bg-white/[0.03] px-4 py-2 text-[13px] font-semibold text-white/80 transition hover:bg-white/[0.08] hover:text-white"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[14px] border border-white/20 bg-white/[0.03] px-4 py-2 text-[13px] font-semibold text-white/80 transition hover:bg-white/[0.08] hover:text-white md:w-auto md:justify-start"
           >
             Подобрать формат в Telegram
             <span aria-hidden="true">↗</span>
