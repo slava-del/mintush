@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="noise grid-overlay font-sans antialiased">
+      <body className="noise font-sans antialiased">
         {children}
         <Analytics />
       </body>

@@ -96,20 +96,6 @@
   background-size: 256px 256px;
 }
 
-/* ── Grid overlay ── */
-.grid-overlay::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image:
-    linear-gradient(to right, var(--ink) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--ink) 1px, transparent 1px);
-  background-size: 80px 80px;
-}
-
 /* ── Oversized poster type ── */
 .text-display {
   font-size: var(--text-display);
