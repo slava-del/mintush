@@ -71,14 +71,64 @@ const logoPlaceholders = [
   { id: "07", size: "h-[33px] md:h-[41px]", opacity: "opacity-82" },
 ];
 
+const startFormats = [
+  {
+    situation: "Я начинаю руководить",
+    format: "Основы управления",
+    href: "/basis",
+  },
+  {
+    situation: "Я уже руководитель",
+    format: "Совет управленцев",
+    href: "/board",
+  },
+  {
+    situation: "Мне нужна стратегия",
+    format: "Персональный стратег",
+    href: "/adviser",
+  },
+  {
+    situation: "Хочу закрыть пробел быстро",
+    format: "Мини-курсы",
+    href: "/courses",
+  },
+];
+
+const youtubeVideos = [
+  {
+    title: "Neiry.Conf 2025: Биороботы и другие новинки нейротеха",
+    url: "https://www.youtube.com/watch?v=Ax-PcpWw_ZA",
+    videoId: "Ax-PcpWw_ZA",
+  },
+  {
+    title: "Мозг и нейросети: ждём слияния",
+    url: "https://www.youtube.com/watch?v=Gk5xO8voLkY",
+    videoId: "Gk5xO8voLkY",
+  },
+  {
+    title: "Разбираем конкурентов Neiry",
+    url: "https://www.youtube.com/watch?v=rlCZMIaHo6U",
+    videoId: "rlCZMIaHo6U",
+  },
+  {
+    title: "Ещё одно полезное видео",
+    url: "https://www.youtube.com/watch?v=dAOWn8PTHdc",
+    videoId: "dAOWn8PTHdc",
+  },
+];
+
 export default function Page() {
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
   const firstCardRef = useRef<HTMLDivElement | null>(null);
   const secondCardRef = useRef<HTMLDivElement | null>(null);
+  const thirdCardRef = useRef<HTMLDivElement | null>(null);
+  const fourthCardRef = useRef<HTMLDivElement | null>(null);
   const [visibleItems, setVisibleItems] = useState<boolean[]>(() =>
     Array.from({ length: highlights.length }, () => false),
   );
   const [showCenterCard, setShowCenterCard] = useState(false);
+  const [showStartCard, setShowStartCard] = useState(false);
+  const [showVideoCard, setShowVideoCard] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -118,7 +168,7 @@ export default function Page() {
 
     const syncOverlayVisibility = () => {
       const maxScroll = Math.max(firstCard.scrollHeight - firstCard.clientHeight, 0);
-      const trigger = maxScroll * 0.82;
+      const trigger = maxScroll * (showCenterCard ? 0.72 : 0.9);
       const shouldShow = maxScroll > 0 && firstCard.scrollTop >= trigger;
       setShowCenterCard((prev) => (prev === shouldShow ? prev : shouldShow));
     };
@@ -131,23 +181,111 @@ export default function Page() {
       firstCard.removeEventListener("scroll", syncOverlayVisibility);
       window.removeEventListener("resize", syncOverlayVisibility);
     };
-  }, []);
+  }, [showCenterCard]);
 
   useEffect(() => {
     const secondCard = secondCardRef.current;
-    const firstCard = firstCardRef.current;
-    if (!secondCard || !firstCard) return;
+    if (!secondCard) return;
 
     const handleWheel = (event: WheelEvent) => {
       if (event.deltaY >= 0 || secondCard.scrollTop > 0) return;
       event.preventDefault();
       setShowCenterCard(false);
-      const maxScroll = Math.max(firstCard.scrollHeight - firstCard.clientHeight, 0);
-      firstCard.scrollTop = maxScroll * 0.78;
     };
 
     secondCard.addEventListener("wheel", handleWheel, { passive: false });
     return () => secondCard.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  useEffect(() => {
+    const secondCard = secondCardRef.current;
+    if (!secondCard) return;
+
+    const syncThirdOverlayVisibility = () => {
+      const maxScroll = Math.max(secondCard.scrollHeight - secondCard.clientHeight, 0);
+      const trigger = maxScroll * (showStartCard ? 0.72 : 0.9);
+      const shouldShow = showCenterCard && maxScroll > 0 && secondCard.scrollTop >= trigger;
+      setShowStartCard((prev) => (prev === shouldShow ? prev : shouldShow));
+    };
+
+    syncThirdOverlayVisibility();
+    secondCard.addEventListener("scroll", syncThirdOverlayVisibility, { passive: true });
+    window.addEventListener("resize", syncThirdOverlayVisibility);
+
+    return () => {
+      secondCard.removeEventListener("scroll", syncThirdOverlayVisibility);
+      window.removeEventListener("resize", syncThirdOverlayVisibility);
+    };
+  }, [showCenterCard, showStartCard]);
+
+  useEffect(() => {
+    if (showCenterCard) return;
+    setShowStartCard(false);
+  }, [showCenterCard]);
+
+  useEffect(() => {
+    const thirdCard = thirdCardRef.current;
+    if (!thirdCard) return;
+
+    const handleWheel = (event: WheelEvent) => {
+      const thirdMaxScroll = Math.max(thirdCard.scrollHeight - thirdCard.clientHeight, 0);
+      const isAtTop = thirdCard.scrollTop <= 0;
+      const isAtBottom = thirdCard.scrollTop >= thirdMaxScroll - 1;
+
+      if (event.deltaY < 0 && isAtTop) {
+        event.preventDefault();
+        setShowStartCard(false);
+        return;
+      }
+
+      if (event.deltaY > 0 && isAtBottom) {
+        event.preventDefault();
+        setShowVideoCard(true);
+      }
+    };
+
+    thirdCard.addEventListener("wheel", handleWheel, { passive: false });
+    return () => thirdCard.removeEventListener("wheel", handleWheel);
+  }, []);
+
+  useEffect(() => {
+    const thirdCard = thirdCardRef.current;
+    if (!thirdCard) return;
+
+    const syncFourthOverlayVisibility = () => {
+      const maxScroll = Math.max(thirdCard.scrollHeight - thirdCard.clientHeight, 0);
+      const trigger = maxScroll * (showVideoCard ? 0.72 : 0.9);
+      const shouldShow = showStartCard && maxScroll > 0 && thirdCard.scrollTop >= trigger;
+      setShowVideoCard((prev) => (prev === shouldShow ? prev : shouldShow));
+    };
+
+    syncFourthOverlayVisibility();
+    thirdCard.addEventListener("scroll", syncFourthOverlayVisibility, { passive: true });
+    window.addEventListener("resize", syncFourthOverlayVisibility);
+
+    return () => {
+      thirdCard.removeEventListener("scroll", syncFourthOverlayVisibility);
+      window.removeEventListener("resize", syncFourthOverlayVisibility);
+    };
+  }, [showStartCard, showVideoCard]);
+
+  useEffect(() => {
+    if (showStartCard) return;
+    setShowVideoCard(false);
+  }, [showStartCard]);
+
+  useEffect(() => {
+    const fourthCard = fourthCardRef.current;
+    if (!fourthCard) return;
+
+    const handleWheel = (event: WheelEvent) => {
+      if (event.deltaY >= 0 || fourthCard.scrollTop > 0) return;
+      event.preventDefault();
+      setShowVideoCard(false);
+    };
+
+    fourthCard.addEventListener("wheel", handleWheel, { passive: false });
+    return () => fourthCard.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
@@ -155,7 +293,7 @@ export default function Page() {
       <section className="relative w-full">
         <div
           ref={firstCardRef}
-          className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overflow-x-hidden overflow-y-auto rounded-[28px] bg-[#050505] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
+          className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] bg-[#050505] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
         >
           <div className="relative h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] flex-none overflow-hidden">
             {/* RIGHT IMAGE — bigger */}
@@ -166,14 +304,14 @@ export default function Page() {
                   alt="Олег Минтуш"
                   fill
                   priority
-                  className="object-contain object-bottom brightness-[1.2] contrast-[1.06]"
+                  className="object-contain object-bottom brightness-[1.38] contrast-[1.1] saturate-[1.06]"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/25 to-[#050505]" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_35%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.42)_52%,rgba(0,0,0,0.92)_100%)]" />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/16 to-[#050505]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_35%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.3)_52%,rgba(0,0,0,0.82)_100%)]" />
               </div>
 
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,#050505_0%,#050505_44%,rgba(5,5,5,0.92)_58%,rgba(5,5,5,0)_78%)]" />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,#050505_0%,#050505_44%,rgba(5,5,5,0.88)_58%,rgba(5,5,5,0)_78%)]" />
             </div>
 
             {/* TOP RIGHT */}
@@ -308,7 +446,7 @@ export default function Page() {
         >
           <div
             ref={secondCardRef}
-            className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overflow-x-hidden overflow-y-auto rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
+            className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
           >
             <div className="px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
               <h2 className="text-center text-[40px] font-extrabold leading-[1.02] tracking-[-0.03em] text-black md:text-[58px]">
@@ -317,8 +455,8 @@ export default function Page() {
 
               <div className="mt-8 grid gap-5 xl:grid-cols-[1.35fr_1fr]">
                 <article className="flex h-full flex-col rounded-[26px] border border-black/10 bg-[#efe4cf] px-6 py-7 md:px-8 md:py-8">
-                  <h3 className="max-w-[22ch] text-[34px] font-extrabold leading-[1.02] tracking-[-0.02em] text-black md:text-[46px]">
-                    В экосистеме MINTUSH — 5 форматов развития руководителей
+                  <h3 className="max-w-[22ch] text-[29px] font-extrabold leading-[1.03] tracking-[-0.02em] text-black md:text-[40px]">
+                    В экосистеме MINTUSH - 4 форматa развития руководителей
                   </h3>
 
                   <div className="mt-auto grid gap-x-7 gap-y-4 pt-8 sm:grid-cols-2">
@@ -342,10 +480,10 @@ export default function Page() {
                 </article>
 
                 <article className="rounded-[26px] border border-black/10 bg-[#ecdfc8] px-6 py-7 md:px-8 md:py-8">
-                  <h3 className="text-[38px] font-extrabold leading-[1.04] tracking-[-0.03em] text-black md:text-[52px]">
+                  <h3 className="text-[33px] font-extrabold leading-[1.05] tracking-[-0.03em] text-black md:text-[44px]">
                     Наша миссия:
                     <br />
-                    Сделать управление системным.
+                    сделать управление системным.
                   </h3>
 
                   <p className="mt-6 max-w-[31ch] text-[20px] leading-[1.3] text-black/78 md:text-[24px]">
@@ -364,7 +502,7 @@ export default function Page() {
               </div>
 
               <div className="mt-11 pb-2">
-                <h3 className="text-center text-[42px] font-extrabold leading-[1.03] tracking-[-0.028em] text-black md:text-[54px]">
+                <h3 className="text-center text-[36px] font-extrabold leading-[1.04] tracking-[-0.028em] text-black md:text-[46px]">
                   Нашими технологиями пользуются
                 </h3>
 
@@ -383,6 +521,129 @@ export default function Page() {
                     ))}
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`absolute inset-0 z-50 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            showStartCard ? "translate-y-0 pointer-events-auto" : "translate-y-[106%] pointer-events-none"
+          }`}
+        >
+          <div
+            ref={thirdCardRef}
+            className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-white/12 bg-[#040404] shadow-[0_40px_140px_rgba(0,0,0,0.72)]"
+          >
+            <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
+              <h2 className="text-center text-[42px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[58px]">
+                С чего начать
+              </h2>
+              <p className="mt-3 text-center text-[18px] font-medium leading-[1.3] text-white/65 md:text-[21px]">
+                Выберите свою ситуацию — мы покажем лучший формат.
+              </p>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                {startFormats.map((item) => (
+                  <a
+                    key={item.situation}
+                    href={item.href}
+                    className="rounded-[22px] border border-white/14 bg-black/45 p-5 transition hover:border-[#e7d2ad]/45 hover:bg-black/55 md:min-h-[210px] md:p-6"
+                  >
+                    <div className="flex h-full min-h-[160px] flex-col justify-between">
+                      <h3 className="max-w-[20ch] text-[22px] font-semibold leading-[1.1] tracking-[-0.01em] text-white/92 md:text-[27px]">
+                        {item.situation}
+                      </h3>
+                      <p className="self-end text-right text-[28px] font-extrabold leading-[1.06] tracking-[-0.02em] text-[#e7d2ad] md:text-[36px]">
+                        {item.format}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <div className="mt-auto pt-8">
+                <div className="flex justify-center">
+                  <a
+                    href="https://t.me/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-[#e7d2ad]/35 bg-[#e7d2ad]/10 px-7 py-3 text-[16px] font-semibold text-[#e7d2ad] transition hover:border-[#e7d2ad]/65 hover:bg-[#e7d2ad]/16 md:text-[18px]"
+                  >
+                    Не уверены? Подберём формат в Telegram за 5 вопросов →
+                  </a>
+                </div>
+
+                <p className="mt-5 text-center text-[15px] leading-[1.35] text-white/42 md:text-[16px]">
+                  Почему это идеально здесь: после логотипов доверие уже поднялось, и дальше человеку нужно не читать — а выбрать путь.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`absolute inset-0 z-[60] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            showVideoCard ? "translate-y-0 pointer-events-auto" : "translate-y-[106%] pointer-events-none"
+          }`}
+        >
+          <div
+            ref={fourthCardRef}
+            className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-white/12 bg-[#030303] shadow-[0_40px_140px_rgba(0,0,0,0.75)]"
+          >
+            <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
+              <h2 className="text-center text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[56px]">
+                Полезные видео
+              </h2>
+
+              <div className="flex flex-1 items-center">
+                <div className="mx-auto grid w-full max-w-[1650px] grid-cols-1 gap-x-7 gap-y-8 md:grid-cols-2 2xl:grid-cols-4">
+                  {youtubeVideos.map((video, index) => (
+                    <a
+                      key={`${video.videoId}-${index}`}
+                      href={video.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group block"
+                    >
+                      <div className="relative overflow-hidden rounded-[18px] border border-white/12 bg-black">
+                        <img
+                          src={`https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`}
+                          alt={video.title}
+                          className="aspect-video h-auto w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                          loading="lazy"
+                          onError={(event) => {
+                            const image = event.currentTarget;
+                            if (image.src.includes("hqdefault")) return;
+                            image.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+                          }}
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_40%,rgba(0,0,0,0.24)_100%)]" />
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                          <span className="grid h-14 w-14 place-items-center rounded-full bg-black/46 text-white/96 backdrop-blur-[2px]">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path d="M9 7v10l8-5-8-5z" fill="currentColor" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <p className="mt-3 text-[24px] font-bold leading-[1.08] tracking-[-0.015em] text-white/92 md:text-[30px]">
+                        {video.title}
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto flex justify-center pt-10">
+                <a
+                  href="https://www.youtube.com/@mintushbusiness"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-white/26 bg-black px-11 py-4 text-[18px] font-semibold text-white transition hover:bg-white/10"
+                >
+                  Посмотреть другие видео
+                </a>
               </div>
             </div>
           </div>
