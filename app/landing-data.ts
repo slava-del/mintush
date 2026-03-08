@@ -72,24 +72,19 @@ export const highlights: Highlight[] = [
 
 export const ecosystemFormats: EcosystemFormat[] = [
   {
-    title: "Основы управления",
-    subtitle: "старт для начинающих руководителей",
-    href: "/basis",
+    title: "Обучение",
+    subtitle: "стратегия бизнеса, бизнес-модель\nи ключевые бизнес-функции",
+    href: "/education",
   },
   {
     title: "Совет управленцев",
-    subtitle: "клуб для руководителей команд 10+",
+    subtitle: "клуб для руководителей команд\nи обмена реальным опытом",
     href: "/board",
   },
   {
-    title: "Персональный стратег",
-    subtitle: "стратегия, делегирование, мышление",
+    title: "Наставничество",
+    subtitle: "стратегия, делегирование\nи управленческое мышление",
     href: "/adviser",
-  },
-  {
-    title: "Мини-курсы",
-    subtitle: "бизнес-функции: финансы, продажи, HR, процессы",
-    href: "/courses",
   },
 ];
 

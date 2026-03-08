@@ -11,7 +11,6 @@ import {
   highlights,
   liveSessionMainPhoto,
   liveSessionSecondaryPhotos,
-  logoPlaceholders,
   pricingPlans,
   startFormats,
   youtubeVideos,
@@ -244,7 +243,6 @@ export default function Page() {
           <AboutCenterCard
             cardRef={secondCardRef}
             ecosystemFormats={ecosystemFormats}
-            logoPlaceholders={logoPlaceholders}
           />
         </div>
 
