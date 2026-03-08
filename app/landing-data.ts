@@ -16,10 +16,22 @@ export type LogoPlaceholder = {
   opacity: string;
 };
 
+export type StartFormatId = "education" | "board" | "adviser";
+
 export type StartFormat = {
-  situation: string;
-  format: string;
+  id: StartFormatId;
+  title: string;
+  note: string;
   href: string;
+  recommendation: string;
+};
+
+export type StartQuizQuestion = {
+  prompt: string;
+  options: Array<{
+    label: string;
+    formatId: StartFormatId;
+  }>;
 };
 
 export type YoutubeVideo = {
@@ -100,24 +112,71 @@ export const logoPlaceholders: LogoPlaceholder[] = [
 
 export const startFormats: StartFormat[] = [
   {
-    situation: "Я начинаю руководить",
-    format: "Основы управления",
-    href: "/basis",
+    id: "education",
+    title: "Обучение",
+    note: "системная база и практика в своём темпе",
+    href: "/education",
+    recommendation:
+      "Потому что вам важно системно усилить управленческие компетенции, разобраться в базе управления и получать практику в удобном для себя темпе.",
   },
   {
-    situation: "Я уже руководитель",
-    format: "Совет управленцев",
+    id: "board",
+    title: "Совет управленцев",
+    note: "сильное окружение и разбор реальных задач",
     href: "/board",
+    recommendation:
+      "Потому что вам важно не только развивать компетенции, но и иметь сильное окружение руководителей, обмениваться опытом и разбирать реальные задачи.",
   },
   {
-    situation: "Мне нужна стратегия",
-    format: "Персональный стратег",
+    id: "adviser",
+    title: "Наставничество",
+    note: "персональная работа и управленческие решения",
     href: "/adviser",
+    recommendation:
+      "Потому что вам нужна персональная поддержка, разбор управленческих решений и фокус на развитии бизнеса, команды и вас как руководителя.",
+  },
+];
+
+export const startQuestions: StartQuizQuestion[] = [
+  {
+    prompt: "Что вам сейчас нужнее всего?",
+    options: [
+      { label: "Быстро усилить управленческие компетенции", formatId: "education" },
+      { label: "Найти окружение сильных руководителей", formatId: "board" },
+      { label: "Получить персональную поддержку и разбор", formatId: "adviser" },
+    ],
   },
   {
-    situation: "Хочу закрыть пробел быстро",
-    format: "Мини-курсы",
-    href: "/courses",
+    prompt: "Какой формат вам ближе?",
+    options: [
+      { label: "Короткие материалы и практика в своём темпе", formatId: "education" },
+      { label: "Регулярное участие в сообществе", formatId: "board" },
+      { label: "Личная работа с наставником", formatId: "adviser" },
+    ],
+  },
+  {
+    prompt: "С какой задачей вы пришли?",
+    options: [
+      { label: "Хочу систематизировать базу управления", formatId: "education" },
+      { label: "Хочу обсуждать реальные задачи с равными", formatId: "board" },
+      { label: "Хочу развивать компанию и себя как руководителя", formatId: "adviser" },
+    ],
+  },
+  {
+    prompt: "Какая степень вовлечения вам подходит?",
+    options: [
+      { label: "Гибкий темп, чтобы проходить самостоятельно", formatId: "education" },
+      { label: "Регулярные встречи и обмен опытом", formatId: "board" },
+      { label: "Глубокая персональная работа", formatId: "adviser" },
+    ],
+  },
+  {
+    prompt: "Какой результат для вас сейчас важнее?",
+    options: [
+      { label: "Лучше понимать, как устроено управление компанией", formatId: "education" },
+      { label: "Получить опору, окружение и новые управленческие идеи", formatId: "board" },
+      { label: "Принять сильные решения по развитию бизнеса и команды", formatId: "adviser" },
+    ],
   },
 ];
 

@@ -13,6 +13,7 @@ import {
   liveSessionSecondaryPhotos,
   pricingPlans,
   startFormats,
+  startQuestions,
   youtubeVideos,
 } from "./landing-data";
 import { StartCard } from "./StartCard";
@@ -251,7 +252,11 @@ export default function Page() {
             showStartCard ? "translate-y-0 pointer-events-auto" : "translate-y-[106%] pointer-events-none"
           }`}
         >
-          <StartCard cardRef={thirdCardRef} startFormats={startFormats} />
+          <StartCard
+            cardRef={thirdCardRef}
+            startFormats={startFormats}
+            startQuestions={startQuestions}
+          />
         </div>
 
         <div
