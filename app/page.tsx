@@ -27,6 +27,7 @@ const manrope = Manrope({
 
 const CARD_COUNT = 6;
 const TRANSITION_MS = 700;
+const FIRST_CARD_UNLOCK_DELAY_MS = 260;
 
 export default function Page() {
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -43,6 +44,8 @@ export default function Page() {
   const [activeCard, setActiveCard] = useState(0);
 
   const isTransitioningRef = useRef(false);
+  const firstCardAdvanceArmedRef = useRef(false);
+  const firstCardAdvanceArmedAtRef = useRef(0);
 
   const showCenterCard = activeCard >= 1;
   const showStartCard = activeCard >= 2;
@@ -66,19 +69,61 @@ export default function Page() {
     const card = firstCardRef.current;
     if (!card) return;
 
-    const handleScroll = () => {
+    const resetAdvanceLock = () => {
+      firstCardAdvanceArmedRef.current = false;
+      firstCardAdvanceArmedAtRef.current = 0;
+    };
+
+    const handleWheel = (event: WheelEvent) => {
       if (isTransitioningRef.current || activeCard !== 0) return;
 
       const maxScroll = Math.max(card.scrollHeight - card.clientHeight, 0);
       if (maxScroll <= 0) return;
 
-      if (card.scrollTop / maxScroll >= 0.985) {
-        goToCard(1);
+      const atBottom = card.scrollTop >= maxScroll - 1;
+
+      if (event.deltaY <= 0) {
+        resetAdvanceLock();
+        return;
+      }
+
+      if (!atBottom) {
+        resetAdvanceLock();
+        return;
+      }
+
+      event.preventDefault();
+
+      const now = performance.now();
+      if (!firstCardAdvanceArmedRef.current) {
+        firstCardAdvanceArmedRef.current = true;
+        firstCardAdvanceArmedAtRef.current = now;
+        return;
+      }
+
+      if (now - firstCardAdvanceArmedAtRef.current < FIRST_CARD_UNLOCK_DELAY_MS) {
+        return;
+      }
+
+      resetAdvanceLock();
+      goToCard(1);
+    };
+
+    const handleScroll = () => {
+      if (activeCard !== 0) return;
+      const maxScroll = Math.max(card.scrollHeight - card.clientHeight, 0);
+      if (card.scrollTop < maxScroll - 1) {
+        resetAdvanceLock();
       }
     };
 
+    card.addEventListener("wheel", handleWheel, { passive: false });
     card.addEventListener("scroll", handleScroll, { passive: true });
-    return () => card.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      card.removeEventListener("wheel", handleWheel);
+      card.removeEventListener("scroll", handleScroll);
+    };
   }, [activeCard, goToCard]);
 
   useEffect(() => {
