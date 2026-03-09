@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import { memo, type RefObject } from "react";
 import type { YoutubeVideo } from "./landing-data";
 
 type VideosCardProps = {
@@ -6,11 +6,11 @@ type VideosCardProps = {
   youtubeVideos: YoutubeVideo[];
 };
 
-export function VideosCard({ cardRef, youtubeVideos }: VideosCardProps) {
+export const VideosCard = memo(function VideosCard({ cardRef, youtubeVideos }: VideosCardProps) {
   return (
     <div
       ref={cardRef}
-      className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-white/12 bg-[#030303] shadow-[0_40px_140px_rgba(0,0,0,0.75)]"
+      className="overflow-hidden rounded-[28px] border border-white/12 bg-[#030303] shadow-[0_40px_140px_rgba(0,0,0,0.75)]"
     >
       <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
         <h2 className="text-center text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[56px]">
@@ -69,4 +69,4 @@ export function VideosCard({ cardRef, youtubeVideos }: VideosCardProps) {
       </div>
     </div>
   );
-}
+});

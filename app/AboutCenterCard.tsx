@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { RefObject } from "react";
+import { memo, type RefObject } from "react";
 import type { EcosystemFormat } from "./landing-data";
 
 type AboutCenterCardProps = {
@@ -56,11 +56,11 @@ const trustedLogos = [
   { src: "/logos/cropped/webinar.png", alt: "Webinar", width: 373, height: 295, sizeClass: "h-[42px] md:h-[50px]" },
 ];
 
-export function AboutCenterCard({ cardRef, ecosystemFormats }: AboutCenterCardProps) {
+export const AboutCenterCard = memo(function AboutCenterCard({ cardRef, ecosystemFormats }: AboutCenterCardProps) {
   return (
     <div
       ref={cardRef}
-      className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
+      className="overflow-hidden rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
     >
       <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
         <h2 className="text-center text-[40px] font-extrabold leading-[1.02] tracking-[-0.03em] text-black md:text-[58px]">
@@ -184,4 +184,4 @@ export function AboutCenterCard({ cardRef, ecosystemFormats }: AboutCenterCardPr
       `}</style>
     </div>
   );
-}
+});

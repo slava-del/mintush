@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type RefObject } from "react";
+import { memo, useState, type RefObject } from "react";
 import type { PricingPlan } from "./landing-data";
 
 type PricingCardProps = {
@@ -10,13 +10,13 @@ type PricingCardProps = {
 
 type PriceMode = "monthly" | "period";
 
-export function PricingCard({ cardRef, plans }: PricingCardProps) {
+export const PricingCard = memo(function PricingCard({ cardRef, plans }: PricingCardProps) {
   const [priceMode, setPriceMode] = useState<PriceMode>("monthly");
 
   return (
     <div
       ref={cardRef}
-      className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-white/12 bg-[#040404] shadow-[0_40px_140px_rgba(0,0,0,0.74)]"
+      className="overflow-hidden rounded-[28px] border border-white/12 bg-[#040404] shadow-[0_40px_140px_rgba(0,0,0,0.74)]"
     >
       <div className="px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -120,4 +120,4 @@ export function PricingCard({ cardRef, plans }: PricingCardProps) {
       </div>
     </div>
   );
-}
+});

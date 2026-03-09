@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { RefObject } from "react";
 import type { StartFormat, StartFormatId, StartQuizQuestion } from "./landing-data";
 
@@ -17,7 +17,7 @@ const compactTitles: Record<StartFormatId, string> = {
   adviser: "Наставничество",
 };
 
-export function StartCard({ cardRef, startFormats, startQuestions }: StartCardProps) {
+export const StartCard = memo(function StartCard({ cardRef, startFormats, startQuestions }: StartCardProps) {
   const [answers, setAnswers] = useState<StartFormatId[]>([]);
 
   const scores = startFormats.reduce<Record<StartFormatId, number>>(
@@ -70,13 +70,13 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
   return (
     <div
       ref={cardRef}
-      className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-white/12 bg-[radial-gradient(circle_at_top,rgba(231,210,173,0.12),transparent_34%),linear-gradient(180deg,#050505_0%,#080808_62%,#101010_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.72)]"
+      className="overflow-hidden rounded-[28px] border border-white/12 bg-[radial-gradient(circle_at_top,rgba(231,210,173,0.12),transparent_34%),linear-gradient(180deg,#050505_0%,#080808_62%,#101010_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.72)]"
     >
-      <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
-        <h2 className="text-center text-[42px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[58px]">
+      <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10 lg:pb-6 lg:pt-6">
+        <h2 className="text-center text-[34px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[44px] xl:text-[50px]">
           Не уверены, что выбрать?
         </h2>
-        <p className="mx-auto mt-3 max-w-[34ch] text-center text-[18px] font-medium leading-[1.3] text-white/65 md:text-[21px]">
+        <p className="mx-auto mt-2 max-w-[34ch] text-center text-[16px] font-medium leading-[1.3] text-white/65 md:text-[18px] xl:text-[20px]">
           Подскажем формат, который подойдёт именно вам.
         </p>
 
@@ -198,8 +198,8 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
           )}
         </div>
 
-        <div className="mt-8 hidden flex-1 gap-5 lg:grid xl:grid-cols-[0.8fr_1.2fr]">
-          <div className="flex h-full flex-col gap-4">
+        <div className="mt-5 hidden min-h-0 flex-1 gap-4 lg:grid xl:grid-cols-[0.8fr_1.2fr]">
+          <div className="flex h-full flex-col gap-3">
             {startFormats.map((format) => {
               const score = scores[format.id];
               const isLeading = leadingFormatId === format.id;
@@ -209,7 +209,7 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
                 <Link
                   key={format.id}
                   href={format.href}
-                  className={`group relative flex min-h-[150px] flex-1 flex-col justify-between overflow-hidden rounded-[24px] border p-5 transition-all duration-300 md:min-h-[170px] md:p-6 ${
+                  className={`group relative flex min-h-[112px] flex-1 flex-col justify-between overflow-hidden rounded-[24px] border p-4 transition-all duration-300 xl:min-h-[128px] xl:p-5 ${
                     isLeading
                       ? "border-[#e7d2ad]/45 bg-[#e7d2ad]/10 shadow-[0_0_0_1px_rgba(231,210,173,0.08)] hover:border-[#e7d2ad]/65"
                       : "border-white/10 bg-white/[0.03] hover:border-white/22 hover:bg-white/[0.05]"
@@ -218,13 +218,13 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <h3
-                        className={`relative inline-block w-fit pb-2 text-[28px] font-extrabold leading-[1.02] tracking-[-0.02em] after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-[#e7d2ad]/70 after:transition-transform after:duration-300 group-hover:after:scale-x-100 md:text-[34px] ${
+                        className={`relative inline-block w-fit pb-1.5 text-[22px] font-extrabold leading-[1.02] tracking-[-0.02em] after:absolute after:bottom-0 after:left-0 after:h-[3px] after:w-full after:origin-left after:scale-x-0 after:rounded-full after:bg-[#e7d2ad]/70 after:transition-transform after:duration-300 group-hover:after:scale-x-100 xl:text-[28px] ${
                           isLeading ? "text-white" : "text-white/82"
                         }`}
                       >
                         {format.title}
                       </h3>
-                      <p className="mt-3 max-w-[24ch] text-[15px] leading-[1.35] text-white/48 md:text-[17px]">
+                      <p className="mt-2 max-w-[24ch] text-[14px] leading-[1.3] text-white/48 xl:text-[15px]">
                         {format.note}
                       </p>
                     </div>
@@ -247,7 +247,7 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
                     </div>
                   </div>
 
-                  <div className="mt-5 h-[3px] rounded-full bg-white/8">
+                  <div className="mt-3 h-[3px] rounded-full bg-white/8">
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${
                         isLeading ? "bg-[#e7d2ad]" : "bg-white/16"
@@ -260,7 +260,7 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
             })}
           </div>
 
-          <article className="flex min-h-[420px] flex-col rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-6 md:min-h-[520px] md:p-8">
+          <article className="flex h-full min-h-0 flex-col rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-5 xl:p-6">
             <div className="flex items-center justify-end gap-4">
               <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-white/32">
                 {isComplete ? `${totalSteps} / ${totalSteps}` : `${currentStep + 1} / ${totalSteps}`}
@@ -268,53 +268,53 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
             </div>
 
             {!isComplete && currentQuestion ? (
-              <div className="mt-10 flex flex-1 flex-col">
-                <h3 className="max-w-[18ch] text-[34px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white md:text-[46px]">
+              <div className="mt-6 flex flex-1 flex-col">
+                <h3 className="max-w-[18ch] text-[28px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white xl:text-[38px]">
                   {currentQuestion.prompt}
                 </h3>
 
-                <div className="mt-10 grid gap-4">
+                <div className="mt-6 grid gap-3">
                   {currentQuestion.options.map((option) => (
                     <button
                       key={option.label}
                       type="button"
                       onClick={() => handleAnswer(option.formatId)}
-                      className="rounded-[999px] border border-white/10 bg-white/[0.03] px-6 py-5 text-left text-[18px] font-semibold leading-[1.3] text-white/84 transition-all duration-200 hover:border-[#e7d2ad]/45 hover:bg-[#e7d2ad]/10 hover:text-white md:px-7 md:py-6 md:text-[22px]"
+                      className="rounded-[999px] border border-white/10 bg-white/[0.03] px-5 py-4 text-left text-[16px] font-semibold leading-[1.25] text-white/84 transition-all duration-200 hover:border-[#e7d2ad]/45 hover:bg-[#e7d2ad]/10 hover:text-white xl:px-6 xl:py-5 xl:text-[19px]"
                     >
                       {option.label}
                     </button>
                   ))}
                 </div>
 
-                <p className="mt-auto pt-8 text-[14px] leading-[1.45] text-white/34 md:text-[15px]">
+                <p className="mt-auto pt-6 text-[13px] leading-[1.4] text-white/34 xl:text-[14px]">
                   Выберите вариант, который ближе всего к вашей текущей задаче.
                 </p>
               </div>
             ) : (
-              <div className="mt-10 flex flex-1 flex-col">
+              <div className="mt-6 flex flex-1 flex-col">
                 {winningFormat ? (
-                  <div className="flex flex-1 flex-col rounded-[24px] border border-[#e7d2ad]/30 bg-[#e7d2ad]/10 p-6 md:p-8">
+                  <div className="flex flex-1 flex-col rounded-[24px] border border-[#e7d2ad]/30 bg-[#e7d2ad]/10 p-5 xl:p-6">
                     <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#e7d2ad]">
                       Ваш результат
                     </span>
-                    <h3 className="mt-4 max-w-[15ch] text-[34px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white md:text-[46px]">
+                    <h3 className="mt-3 max-w-[15ch] text-[28px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white xl:text-[38px]">
                       Вам подойдёт: {winningFormat.title}
                     </h3>
-                    <p className="mt-6 max-w-[34ch] text-[18px] leading-[1.42] text-white/72 md:text-[22px]">
+                    <p className="mt-4 max-w-[34ch] text-[16px] leading-[1.38] text-white/72 xl:text-[18px]">
                       {winningFormat.recommendation}
                     </p>
 
-                    <div className="mt-auto flex flex-wrap gap-3 pt-8">
+                    <div className="mt-auto flex flex-wrap gap-3 pt-6">
                       <Link
                         href={winningFormat.href}
-                        className="inline-flex items-center justify-center rounded-full bg-[#e7d2ad] px-7 py-3 text-[16px] font-semibold text-black transition hover:bg-[#f3dfbd] md:text-[18px]"
+                        className="inline-flex items-center justify-center rounded-full bg-[#e7d2ad] px-6 py-2.5 text-[15px] font-semibold text-black transition hover:bg-[#f3dfbd] xl:text-[16px]"
                       >
                         Посмотреть формат
                       </Link>
                       <button
                         type="button"
                         onClick={handleRestart}
-                        className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-7 py-3 text-[16px] font-semibold text-white/78 transition hover:border-white/22 hover:bg-white/[0.06] md:text-[18px]"
+                        className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-6 py-2.5 text-[15px] font-semibold text-white/78 transition hover:border-white/22 hover:bg-white/[0.06] xl:text-[16px]"
                       >
                         Пройти заново
                       </button>
@@ -328,4 +328,4 @@ export function StartCard({ cardRef, startFormats, startQuestions }: StartCardPr
       </div>
     </div>
   );
-}
+});

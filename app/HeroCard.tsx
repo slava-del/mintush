@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState, type MutableRefObject, type RefObject } from "react";
+import { memo, useEffect, useMemo, useRef, useState, type MutableRefObject, type RefObject } from "react";
 import type { Highlight } from "./landing-data";
 
 type HeroCardProps = {
@@ -18,7 +18,7 @@ const landingPrimaryNav = [
   { href: "/blog", label: "Блог" },
 ];
 
-export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCardProps) {
+export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCardProps) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const topNumberParts = useMemo(
     () =>
@@ -96,7 +96,7 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
     <>
       <div
         ref={cardRef}
-        className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] bg-[#050505] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
+        className="overflow-hidden rounded-[28px] bg-[#050505] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
       >
       <div className="relative h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] flex-none overflow-hidden">
         <div className="absolute inset-0">
@@ -321,4 +321,4 @@ export function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCa
       `}</style>
     </>
   );
-}
+});

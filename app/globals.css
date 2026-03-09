@@ -83,6 +83,12 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* ── Noise overlay ── */
 .noise::before {
   content: '';

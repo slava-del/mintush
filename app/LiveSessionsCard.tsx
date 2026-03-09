@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { RefObject } from "react";
+import { memo, type RefObject } from "react";
 import { contactConfig } from "@/lib/site-config";
 import type { LiveSessionPhoto } from "./landing-data";
 
@@ -10,7 +10,7 @@ type LiveSessionsCardProps = {
   secondaryPhotos: LiveSessionPhoto[];
 };
 
-export function LiveSessionsCard({
+export const LiveSessionsCard = memo(function LiveSessionsCard({
   cardRef,
   mainPhoto,
   secondaryPhotos,
@@ -18,7 +18,7 @@ export function LiveSessionsCard({
   return (
     <div
       ref={cardRef}
-      className="h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] overscroll-contain overflow-x-hidden overflow-y-auto rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
+      className="overflow-hidden rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
     >
       <div className="flex min-h-full flex-col">
         <div className="h-[calc(100vh-1.5rem)] flex-none px-6 pb-6 pt-8 sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] md:px-10 md:pb-8 md:pt-10">
@@ -146,4 +146,4 @@ export function LiveSessionsCard({
       </div>
     </div>
   );
-}
+});
