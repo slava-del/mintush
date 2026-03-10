@@ -35,6 +35,7 @@ export default function RootLayout({
       <body className="noise font-sans antialiased" suppressHydrationWarning>
         {children}
         <Analytics />
+        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async />
       </body>
     </html>
   )
