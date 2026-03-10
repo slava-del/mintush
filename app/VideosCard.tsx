@@ -10,15 +10,15 @@ export const VideosCard = memo(function VideosCard({ cardRef, youtubeVideos }: V
   return (
     <div
       ref={cardRef}
-      className="overflow-hidden rounded-[28px] border border-white/12 bg-[#030303] shadow-[0_40px_140px_rgba(0,0,0,0.75)]"
+      className="min-h-[calc(100vh-1.5rem)] overflow-hidden rounded-[28px] border border-white/12 bg-[#030303] shadow-[0_40px_140px_rgba(0,0,0,0.75)] sm:min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-3rem)]"
     >
-      <div className="flex min-h-full flex-col px-6 pb-8 pt-8 md:px-10 md:pb-10 md:pt-10">
+      <div className="flex h-full min-h-[calc(100vh-1.5rem)] flex-col px-6 pb-8 pt-8 sm:min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-3rem)] md:px-10 md:pb-10 md:pt-10">
         <h2 className="text-center text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[56px]">
           Полезные видео
         </h2>
 
         <div className="flex flex-1 items-center pt-8 md:pt-10">
-          <div className="mx-auto grid w-full max-w-[1550px] grid-cols-1 gap-x-10 gap-y-10 lg:grid-cols-2">
+          <div className="mx-auto grid w-full max-w-[1550px] grid-cols-1 gap-x-10 gap-y-10 lg:grid-cols-3">
             {youtubeVideos.map((video, index) => (
               <a
                 key={`${video.videoId}-${index}`}

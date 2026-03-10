@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useState, type RefObject } from "react";
+import { memo, type RefObject } from "react";
 import type { PricingPlan } from "./landing-data";
 
 type PricingCardProps = {
@@ -8,11 +8,7 @@ type PricingCardProps = {
   plans: PricingPlan[];
 };
 
-type PriceMode = "monthly" | "period";
-
 export const PricingCard = memo(function PricingCard({ cardRef, plans }: PricingCardProps) {
-  const [priceMode, setPriceMode] = useState<PriceMode>("monthly");
-
   return (
     <div
       ref={cardRef}
@@ -22,52 +18,18 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
             <h2 className="text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[56px]">
-              Тарифы
+              Форматы участия
             </h2>
             <p className="mt-2 text-[17px] font-medium leading-[1.35] text-white/62 md:text-[20px]">
-              Выберите формат и горизонт: месяц / 3 месяца / 6 месяцев.
+              Выберите формат, который подходит под ваш текущий запрос. Условия участия уже указаны на карточках.
             </p>
           </div>
 
-          <div className="rounded-[14px] border border-white/12 bg-white/[0.03] p-1">
-            <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-white/45">
-              Показывать цены
-            </p>
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={() => setPriceMode("monthly")}
-                className={`rounded-[10px] px-3 py-1.5 text-[12px] font-semibold transition ${
-                  priceMode === "monthly"
-                    ? "bg-[#e7d2ad] text-black"
-                    : "text-white/70 hover:bg-white/[0.06] hover:text-white"
-                }`}
-              >
-                в месяц
-              </button>
-              <button
-                type="button"
-                onClick={() => setPriceMode("period")}
-                className={`rounded-[10px] px-3 py-1.5 text-[12px] font-semibold transition ${
-                  priceMode === "period"
-                    ? "bg-[#e7d2ad] text-black"
-                    : "text-white/70 hover:bg-white/[0.06] hover:text-white"
-                }`}
-              >
-                за период
-              </button>
-            </div>
-          </div>
         </div>
 
-        <div className="mt-7 grid gap-4 md:grid-cols-2">
+        <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {plans.map((plan) => {
-            const priceText =
-              priceMode === "period" && plan.periodText
-                ? plan.periodText
-                : plan.oneTimeText
-                  ? plan.oneTimeText
-                  : plan.monthlyText ?? "";
+            const priceText = plan.oneTimeText ?? plan.monthlyText ?? plan.periodText ?? "";
 
             return (
               <article
@@ -77,6 +39,9 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
                 <h3 className="text-[28px] font-extrabold leading-[1.03] tracking-[-0.02em] text-white md:text-[34px]">
                   {plan.name}
                 </h3>
+                <p className="mt-2 text-[17px] font-semibold leading-[1.24] text-white/74 md:text-[19px]">
+                  {plan.subtitle}
+                </p>
 
                 <div className="mt-4 flex flex-wrap items-center gap-2.5">
                   <p className="text-[24px] font-extrabold leading-[1] tracking-[-0.02em] text-[#e7d2ad] md:text-[30px]">
@@ -113,10 +78,6 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
             );
           })}
         </div>
-
-        <p className="mt-6 text-center text-[16px] font-medium leading-[1.35] text-white/56 md:text-[18px]">
-          Почему минимум? Чтобы успеть внедрить и увидеть результат, а не просто «прочитать».
-        </p>
       </div>
     </div>
   );

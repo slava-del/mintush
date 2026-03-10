@@ -48,6 +48,7 @@ export type LiveSessionPhoto = {
 
 export type PricingPlan = {
   name: string;
+  subtitle: string;
   monthlyText?: string;
   periodText?: string;
   oneTimeText?: string;
@@ -187,6 +188,11 @@ export const youtubeVideos: YoutubeVideo[] = [
     videoId: "Ax-PcpWw_ZA",
   },
   {
+    title: "стратегия без иллюзий: думать из будущего, команда и дорожная карта",
+    url: "https://youtu.be/Ywpzm5I_qs0",
+    videoId: "Ywpzm5I_qs0",
+  },
+  {
     title: "регулярный менеджмент, управленческий цикл и окружение экспертов",
     url: "https://youtu.be/dAOWn8PTHdc?si=F1_r4JpbtK-JJHhP",
     videoId: "dAOWn8PTHdc",
@@ -205,43 +211,29 @@ export const liveSessionSecondaryPhotos: LiveSessionPhoto[] = [
 
 export const pricingPlans: PricingPlan[] = [
   {
-    name: "Основы управления",
-    monthlyText: "$X / мес",
-    commitment: "Ежемесячно",
+    name: "ОСНОВА",
+    subtitle: "Мини-курсы по управлению",
+    oneTimeText: "от $X",
+    commitment: "Разовая покупка",
     bullets: [
-      "база управления и роли",
-      "кейсы + практика",
-      "шаблоны и чек-листы",
+      "короткие курсы по стратегии, бизнес-системе и управлению",
+      "видео, руководства, чек-листы и шаблоны",
+      "можно пройти за пару дней или в своём темпе",
     ],
-    primaryCta: "Участвовать",
-    primaryHref: "/basis",
-    secondaryCta: "Программа →",
-    secondaryHref: "/basis",
+    primaryCta: "Смотреть курсы",
+    primaryHref: "/education",
+    secondaryCta: "Что внутри →",
+    secondaryHref: "/education",
   },
   {
-    name: "Персональный стратег",
+    name: "СОВЕТ",
+    subtitle: "Сообщество управленцев",
     monthlyText: "$X / мес",
-    periodText: "$X × 3 = $Y за 3 месяца",
-    commitment: "Минимум 3 месяца",
-    bullets: [
-      "4 личные сессии / мес",
-      "поддержка в чате",
-      "стратегия + делегирование",
-    ],
-    primaryCta: "Подать заявку",
-    primaryHref: "/adviser",
-    secondaryCta: "Как проходит →",
-    secondaryHref: "/adviser",
-  },
-  {
-    name: "Совет управленцев",
-    monthlyText: "$X / мес",
-    periodText: "$X × 6 = $Y за 6 месяцев",
     commitment: "Минимум 6 месяцев",
     bullets: [
-      "закрытый чат руководителей",
-      "4 встречи / мес",
-      "разбор бизнес-задач",
+      "закрытый чат отобранных руководителей",
+      "4 встречи участников в месяц",
+      "разборы реальных бизнес-задач",
     ],
     primaryCta: "Подать заявку",
     primaryHref: "/board",
@@ -249,17 +241,18 @@ export const pricingPlans: PricingPlan[] = [
     secondaryHref: "/board",
   },
   {
-    name: "Мини-курсы",
-    oneTimeText: "от $X",
-    commitment: "Разовая покупка",
+    name: "СТРАТЕГИЯ",
+    subtitle: "Персональное наставничество",
+    monthlyText: "$X / мес",
+    commitment: "Минимум 3 месяца",
     bullets: [
-      "1–3 дня на курс (в темпе)",
-      "видео + гайды",
-      "практические шаблоны",
+      "4 личные сессии в месяц",
+      "поддержка в чате",
+      "стратегия, делегирование и развитие управленческого мышления",
     ],
-    primaryCta: "Выбрать курс",
-    primaryHref: "/education",
-    secondaryCta: "Список →",
-    secondaryHref: "/education",
+    primaryCta: "Подать заявку",
+    primaryHref: "/adviser",
+    secondaryCta: "Как проходит →",
+    secondaryHref: "/adviser",
   },
 ];

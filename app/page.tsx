@@ -93,6 +93,8 @@ export default function Page() {
 
         <VideosCard cardRef={fifthCardRef} youtubeVideos={youtubeVideos} />
 
+        {/* <BusinessArchitectureCard /> */}
+
         <LiveSessionsCard
           cardRef={sixthCardRef}
           mainPhoto={liveSessionMainPhoto}

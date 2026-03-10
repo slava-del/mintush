@@ -14,7 +14,6 @@ export function LiveSessionsShowcase({
   className = "",
 }: LiveSessionsShowcaseProps) {
   const firstAvatar = secondaryPhotos[0] ?? mainPhoto;
-  const secondAvatar = secondaryPhotos[1] ?? mainPhoto;
 
   return (
     <div
@@ -124,7 +123,12 @@ export function LiveSessionsShowcase({
               <div className="mt-4 space-y-3">
                 <div className="live-msg live-msg-1 flex items-start gap-2.5">
                   <div className="relative h-8 w-8 overflow-hidden rounded-full border border-white/12">
-                    <Image src={firstAvatar.src} alt={firstAvatar.alt} fill className="object-cover" />
+                    <Image
+                      src="/tg_client_profile_image.jpg"
+                      alt={firstAvatar.alt || "Профиль клиента"}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <div className="max-w-[86%] rounded-[14px] border border-white/10 bg-white/[0.045] px-3 py-2 text-[13px] leading-[1.3] text-white/84">
                     Коллеги, нужен сильный операционный руководитель для e-commerce команды.
@@ -136,7 +140,7 @@ export function LiveSessionsShowcase({
                     Смотри не только опыт в операционке, но и навык выстраивания ритма управления.
                   </div>
                   <div className="relative h-8 w-8 overflow-hidden rounded-full border border-white/12">
-                    <Image src={secondAvatar.src} alt={secondAvatar.alt} fill className="object-cover" />
+                    <Image src="/tg_profile_image.png" alt="Профиль Telegram" fill className="object-cover" />
                   </div>
                 </div>
 
