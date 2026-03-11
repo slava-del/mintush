@@ -170,7 +170,7 @@ export function LiveSessionsShowcase({
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .live-msg {
           animation: messageFloat 6.8s ease-in-out infinite;
         }

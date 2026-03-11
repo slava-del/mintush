@@ -3,8 +3,10 @@ import Link from "next/link"
 import type { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import { LeadForm } from "@/components/lead-form"
+import { LandingPrimaryNav } from "@/components/landing-primary-nav"
 import { contactConfig, mentorSummary } from "@/lib/site-config"
 import { PenUnderlineOnView } from "./PenUnderlineOnView"
+import { AlumniChatSection } from "../landing/sections/AlumniChatSection"
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -17,14 +19,6 @@ export const metadata: Metadata = {
   description:
     "Практический курс для владельцев и руководителей МСБ: соберите стратегию на 12 месяцев и встроите её в операционное управление.",
 }
-
-const headerLinks = [
-  { href: "/education", label: "Курсы" },
-  { href: "/", label: "Главная" },
-  { href: "#program", label: "Программа" },
-  { href: "#tariffs", label: "Тарифы" },
-  { href: "#faq", label: "FAQ" },
-]
 
 const valuePoints = [
   "ясность: где бизнес сейчас и куда идём",
@@ -78,10 +72,19 @@ const webinars = [
   "Регулярная работа со стратегией",
 ]
 
-const formatPoints = [
-  "Записи вебинаров остаются у вас: курс можно проходить в удобном темпе",
-  "Руководства как чек-лист: прочитал → сделал → получил результат",
-  "В расширенных пакетах: точечная работа с экспертом, без «консалтинга на месяцы»",
+const formatHighlights = [
+  {
+    lead: "Записи остаются у вас",
+    support: "Проходите курс в удобном темпе и возвращайтесь к нужным темам в любой момент.",
+  },
+  {
+    lead: "Руководства как чек-листы",
+    support: "Прочитал, сделал, получил результат. Без лишней теории и перегруза.",
+  },
+  {
+    lead: "Точечная работа с экспертом",
+    support: "В расширенных пакетах: разбор ваших задач и решений по шагам.",
+  },
 ]
 
 const tariffCards = [
@@ -181,14 +184,6 @@ const expertStats = [
   { value: "Board", label: "директора и наблюдательные советы" },
 ]
 
-const alumniBenefits = [
-  "доступ в чат управленцев",
-  "доступ к анкетам выпускников",
-  "ежемесячный нетворк участников",
-  "ежемесячное выступление приглашенного гостя",
-  "площадку, где подскажут как решить вашу задачу",
-]
-
 function StrategyQuestionVisual({ id }: { id: "direction" | "metrics" | "decisions" }) {
   if (id === "direction") {
     return (
@@ -260,64 +255,13 @@ export default function BusinessStrategyPage() {
       className={`${manrope.className} min-h-screen bg-[radial-gradient(circle_at_50%_-20%,rgba(231,210,173,0.22),rgba(11,11,11,0)_40%),#0b0b0b]`}
     >
       <div className="relative min-h-screen overflow-hidden bg-[#050505]">
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050505]/92 px-6 py-4 backdrop-blur-md md:px-12">
-          <div className="mx-auto max-w-[1380px]">
-            <div className="flex flex-wrap items-start justify-between gap-4">
-              <Link href="/" className="group inline-flex items-center gap-3 text-[#EDEDED]">
-                <span className="grid h-10 w-10 place-items-center rounded-full border border-[#e7d2ad]/45 bg-[#070707] text-[12px] font-semibold tracking-[0.18em]">
-                  OM
-                </span>
-                <span className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#EDEDED]/88">OLEG MINTUSH</span>
-              </Link>
-
-              <div className="flex flex-wrap items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.08em]">
-                <a
-                  href="#contact"
-                  className="rounded-full border border-[#e7d2ad]/45 px-4 py-2 text-[#EDEDED]/90 transition hover:border-[#e7d2ad] hover:text-[#EDEDED]"
-                >
-                  Связаться с нами
-                </a>
-                <a
-                  href={contactConfig.telegramUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full border border-[#e7d2ad]/45 bg-[#e7d2ad]/14 px-4 py-2 text-[#e7d2ad] transition hover:bg-[#e7d2ad]/24"
-                >
-                  Telegram
-                </a>
-                <a
-                  href={`mailto:${contactConfig.email}`}
-                  className="rounded-full border border-[#e7d2ad]/45 px-4 py-2 text-[#EDEDED]/90 transition hover:border-[#e7d2ad] hover:text-[#EDEDED]"
-                >
-                  Почта
-                </a>
-              </div>
-            </div>
-
-            <nav className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-semibold uppercase tracking-[0.1em] text-[#EDEDED]/78 md:mt-5">
-              {headerLinks.map((link, index) => {
-                const isPage = link.href.startsWith("/")
-
-                return (
-                  <span key={link.label} className="inline-flex items-center gap-3">
-                    {isPage ? (
-                      <Link href={link.href} className="transition hover:text-[#EDEDED]">
-                        {link.label}
-                      </Link>
-                  ) : (
-                    <a href={link.href} className="transition hover:text-[#EDEDED]">
-                      {link.label}
-                    </a>
-                  )}
-                  {index < headerLinks.length - 1 && <span className="text-[#e7d2ad]/60">·</span>}
-                </span>
-              )
-            })}
-          </nav>
+        <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050505]/88 px-6 backdrop-blur-md md:px-12">
+          <div className="mx-auto max-w-[1380px] py-4">
+            <LandingPrimaryNav activeHref="/education" mode="brand-hamburger" contactHref="#contact" />
           </div>
         </header>
 
-        <section className="relative overflow-hidden px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
+        <section id="top" className="relative overflow-hidden px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
           <div className="pointer-events-none absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 rounded-full bg-[#e7d2ad]/18 blur-3xl" />
           <div className="pointer-events-none absolute right-10 top-28 h-44 w-44 rounded-full bg-[#e7d2ad]/12 blur-3xl" />
           <div className="mx-auto grid max-w-[1380px] items-start gap-10 lg:grid-cols-[1.08fr_0.92fr] xl:gap-14">
@@ -421,6 +365,69 @@ export default function BusinessStrategyPage() {
           </div>
         </section>
 
+        <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
+          <article className="relative overflow-hidden rounded-[24px] border border-[#e7d2ad]/20 bg-[linear-gradient(180deg,#050505_0%,#06060a_58%,#0c1235_100%)] p-8 md:p-10 lg:p-12">
+            <div className="pointer-events-none absolute left-1/2 top-6 h-40 w-[45%] -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.08),rgba(255,255,255,0)_70%)]" />
+            <h2 className="mx-auto max-w-[24ch] text-center text-[clamp(36px,5.2vw,78px)] font-extrabold uppercase leading-[1.04] tracking-[-0.03em] text-[#EDEDED]">
+              Стратегия — это не документ.
+              <br />
+              <span className="text-[#EDEDED]/56">Это система управления.</span>
+            </h2>
+            <p className="mt-5 text-center text-[13px] font-semibold uppercase tracking-[0.18em] text-[#EDEDED]/62">
+              каждый месяц она отвечает на три вопроса
+            </p>
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-3 lg:gap-6">
+              {monthlyQuestions.map((question, index) => (
+                <article
+                  key={question.id}
+                  className={`relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(31,31,39,0.92)_0%,rgba(12,12,14,0.96)_54%,rgba(17,20,43,0.92)_78%,rgba(33,49,189,0.38)_100%)] px-6 pb-4 pt-8 ${
+                    index === 1 ? "lg:translate-y-8" : ""
+                  }`}
+                >
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(circle_at_50%_100%,rgba(71,108,255,0.34)_0%,rgba(71,108,255,0.18)_34%,rgba(71,108,255,0.08)_56%,rgba(71,108,255,0)_84%)]" />
+                  <p className="relative mx-auto max-w-[20ch] text-center text-[clamp(24px,2.2vw,42px)] font-bold leading-[1.16] tracking-[-0.02em] text-[#EDEDED]">
+                    {question.text}
+                  </p>
+                  <div className="relative mt-6 flex justify-center">
+                    <StrategyQuestionVisual id={question.id} />
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <p className="mt-12 text-center text-[18px] font-semibold leading-[1.33] text-[#e7d2ad]">
+              Выберите пакет и начните с первого шага уже на этой неделе.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href="#contact"
+                className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED] transition hover:border-[#e7d2ad]"
+              >
+                Купить «Базовый» — $…
+              </a>
+              <a
+                href="#contact"
+                className="rounded-[12px] border border-[#e7d2ad]/55 bg-[#e7d2ad]/16 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/24"
+              >
+                Купить «С поддержкой» — $…
+              </a>
+              <a
+                href="#contact"
+                className="rounded-[12px] border border-[#e7d2ad]/65 bg-[#e7d2ad]/20 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/32"
+              >
+                Купить «Под ключ» — $…
+              </a>
+              <a
+                href="#free-webinar"
+                className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/92 transition hover:border-[#e7d2ad]"
+              >
+                Смотреть первый вебинар бесплатно
+              </a>
+            </div>
+          </article>
+        </section>
+
         <section className="mx-auto max-w-[1380px] px-6 pb-16 md:px-12 md:pb-20">
           <article className="rounded-[24px] border border-[#e7d2ad]/14 bg-[#070707]/88 p-10 md:p-12">
             <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
@@ -512,38 +519,56 @@ export default function BusinessStrategyPage() {
         </section>
 
         <section id="program" className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
-          <article className="rounded-[24px] border border-[#e7d2ad]/24 bg-[#070707]/90 p-8 md:p-10">
-            <h2 className="text-[33px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[44px]">Что внутри</h2>
-            <div className="mt-6 grid gap-5 lg:grid-cols-2">
-              <div className="rounded-[18px] border border-[#e7d2ad]/24 bg-[#0a0a0a]/70 p-6">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#e7d2ad]/78">4 практических руководства</p>
-                <div className="mt-3 grid gap-2">
+          <article className="rounded-[24px] bg-[linear-gradient(180deg,rgba(9,9,9,0.92),rgba(7,7,7,0.88))] p-8 md:p-10">
+            <div className="max-w-[920px]">
+              <h2 className="text-[35px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[48px]">Что внутри</h2>
+              <p className="mt-3 text-[17px] leading-[1.45] text-[#EDEDED]/70 md:text-[19px]">
+                Все материалы собраны так, чтобы стратегию можно было не только понять, но и внедрить в работу.
+              </p>
+            </div>
+
+            <div className="mt-8 grid gap-5 lg:grid-cols-2">
+              <article className="relative overflow-hidden rounded-[20px] border border-[#e7d2ad]/30 bg-[linear-gradient(180deg,rgba(231,210,173,0.12),rgba(10,10,10,0.92)_30%,rgba(10,10,10,0.98)_100%)] p-7 md:p-8">
+                <div className="pointer-events-none absolute right-4 top-4 h-12 w-12 rounded-full bg-[#e7d2ad]/10 blur-xl" />
+                <div className="flex items-end gap-3">
+                  <p className="text-[60px] font-extrabold leading-none tracking-[-0.04em] text-[#e7d2ad]">4</p>
+                  <p className="pb-1 text-[16px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad]/90 md:text-[18px]">Практических руководства</p>
+                </div>
+                <div className="mt-5 grid gap-2.5">
                   {guides.map((guide) => (
-                    <p key={guide} className="text-[17px] leading-[1.4] text-[#EDEDED]/90">
+                    <p key={guide} className="text-[17px] leading-[1.36] text-[#EDEDED]/92">
                       {guide}
                     </p>
                   ))}
                 </div>
-              </div>
-              <div className="rounded-[18px] border border-[#e7d2ad]/24 bg-[#111111]/60 p-6">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#EDEDED]/86">6 вебинаров</p>
-                <div className="mt-3 grid gap-2">
+              </article>
+
+              <article className="relative overflow-hidden rounded-[20px] border border-white/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(12,12,12,0.92)_30%,rgba(10,10,10,0.98)_100%)] p-7 md:p-8">
+                <div className="pointer-events-none absolute right-4 top-4 h-12 w-12 rounded-full bg-white/8 blur-xl" />
+                <div className="flex items-end gap-3">
+                  <p className="text-[60px] font-extrabold leading-none tracking-[-0.04em] text-[#EDEDED]">6</p>
+                  <p className="pb-1 text-[16px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/86 md:text-[18px]">Вебинаров</p>
+                </div>
+                <div className="mt-5 grid gap-2.5">
                   {webinars.map((webinar) => (
-                    <p key={webinar} className="text-[17px] leading-[1.4] text-[#EDEDED]/90">
+                    <p key={webinar} className="text-[17px] leading-[1.36] text-[#EDEDED]/92">
                       {webinar}
                     </p>
                   ))}
                 </div>
-              </div>
+              </article>
             </div>
 
-            <h3 className="mt-8 text-[28px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[34px]">Формат</h3>
-            <div className="mt-4 grid gap-3 md:grid-cols-3">
-              {formatPoints.map((point) => (
-                <p key={point} className="rounded-[14px] border border-[#e7d2ad]/24 bg-[#0a0a0a]/70 p-5 text-[16px] leading-[1.4] text-[#EDEDED]/88">
-                  {point}
-                </p>
-              ))}
+            <div className="mt-7">
+              <h3 className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#EDEDED]/62">Формат обучения</h3>
+              <div className="mt-3 grid gap-3 md:grid-cols-3">
+                {formatHighlights.map((item) => (
+                  <article key={item.lead} className="rounded-[14px] border border-white/8 bg-white/[0.02] px-4 py-4">
+                    <p className="text-[15px] font-semibold leading-[1.28] text-[#EDEDED]">{item.lead}</p>
+                    <p className="mt-1.5 text-[13px] leading-[1.35] text-[#EDEDED]/62">{item.support}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </article>
         </section>
@@ -667,94 +692,9 @@ export default function BusinessStrategyPage() {
           </article>
         </section>
 
-        <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
-          <article className="relative overflow-hidden rounded-[24px] border border-[#e7d2ad]/20 bg-[linear-gradient(180deg,#050505_0%,#06060a_58%,#0c1235_100%)] p-8 md:p-10 lg:p-12">
-            <div className="pointer-events-none absolute left-1/2 top-6 h-40 w-[45%] -translate-x-1/2 bg-[radial-gradient(circle,rgba(255,255,255,0.08),rgba(255,255,255,0)_70%)]" />
-            <h2 className="mx-auto max-w-[24ch] text-center text-[clamp(36px,5.2vw,78px)] font-extrabold uppercase leading-[1.04] tracking-[-0.03em] text-[#EDEDED]">
-              Стратегия — это не документ.
-              <br />
-              <span className="text-[#EDEDED]/56">Это система управления.</span>
-            </h2>
-            <p className="mt-5 text-center text-[13px] font-semibold uppercase tracking-[0.18em] text-[#EDEDED]/62">
-              каждый месяц она отвечает на три вопроса
-            </p>
-
-            <div className="mt-10 grid gap-5 lg:grid-cols-3 lg:gap-6">
-              {monthlyQuestions.map((question, index) => (
-                <article
-                  key={question.id}
-                  className={`relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(31,31,39,0.92)_0%,rgba(12,12,14,0.96)_54%,rgba(17,20,43,0.92)_78%,rgba(33,49,189,0.38)_100%)] px-6 pb-4 pt-8 ${
-                    index === 1 ? "lg:translate-y-8" : ""
-                  }`}
-                >
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(circle_at_50%_100%,rgba(71,108,255,0.34)_0%,rgba(71,108,255,0.18)_34%,rgba(71,108,255,0.08)_56%,rgba(71,108,255,0)_84%)]" />
-                  <p className="relative mx-auto max-w-[20ch] text-center text-[clamp(24px,2.2vw,42px)] font-bold leading-[1.16] tracking-[-0.02em] text-[#EDEDED]">
-                    {question.text}
-                  </p>
-                  <div className="relative mt-6 flex justify-center">
-                    <StrategyQuestionVisual id={question.id} />
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <p className="mt-12 text-center text-[18px] font-semibold leading-[1.33] text-[#e7d2ad]">
-              Выберите пакет и начните с первого шага уже на этой неделе.
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <a
-                href="#contact"
-                className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED] transition hover:border-[#e7d2ad]"
-              >
-                Купить «Базовый» — $…
-              </a>
-              <a
-                href="#contact"
-                className="rounded-[12px] border border-[#e7d2ad]/55 bg-[#e7d2ad]/16 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/24"
-              >
-                Купить «С поддержкой» — $…
-              </a>
-              <a
-                href="#contact"
-                className="rounded-[12px] border border-[#e7d2ad]/65 bg-[#e7d2ad]/20 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/32"
-              >
-                Купить «Под ключ» — $…
-              </a>
-              <a
-                href="#free-webinar"
-                className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/92 transition hover:border-[#e7d2ad]"
-              >
-                Смотреть первый вебинар бесплатно
-              </a>
-            </div>
-          </article>
-        </section>
-
-        <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
-          <article className="rounded-[24px] border border-[#e7d2ad]/24 bg-[#070707]/88 p-8 md:p-10">
-            <h2 className="text-[31px] font-extrabold leading-[1.03] tracking-[-0.03em] text-[#EDEDED] md:text-[40px]">
-              Бонус. После прохождения курса вы получите доступ в чат выпускников нашей Школы Управления
-            </h2>
-            <p className="mt-5 text-[20px] font-semibold leading-[1.2] text-[#e7d2ad]">(название) Чат выпускников</p>
-            <p className="mt-3 max-w-4xl text-[18px] leading-[1.42] text-[#EDEDED]/86">
-              (описание) Для участников, кто прошел одну или несколько наших программ, мы создали чат, чтобы формировать
-              пространство для общения едино-мыслящих руководителей. Вы получите:
-            </p>
-            <div className="mt-4 grid gap-2">
-              {alumniBenefits.map((item) => (
-                <p key={item} className="text-[17px] leading-[1.4] text-[#EDEDED]/88">
-                  --- {item}
-                </p>
-              ))}
-            </div>
-            <a
-              href="#contact"
-              className="mt-6 inline-flex rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED] transition hover:border-[#e7d2ad]"
-            >
-              (смотреть подробнее)
-            </a>
-          </article>
-        </section>
+        <div id="alumni-chat">
+          <AlumniChatSection />
+        </div>
 
         <footer id="contact" className="border-t border-[#e7d2ad]/20 bg-[#020202] px-6 py-10 md:px-10 md:py-12">
           <div className="mx-auto grid max-w-[1380px] gap-8 md:grid-cols-4">

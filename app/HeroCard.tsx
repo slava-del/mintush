@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import { memo, useEffect, useMemo, useRef, useState, type MutableRefObject, type RefObject } from "react";
 import type { Highlight } from "./landing-data";
+import { LandingPrimaryNav } from "@/components/landing-primary-nav";
 
 type HeroCardProps = {
   cardRef: RefObject<HTMLDivElement | null>;
@@ -10,16 +10,7 @@ type HeroCardProps = {
   visibleItems: boolean[];
 };
 
-const landingPrimaryNav = [
-  { href: "/education", label: "Обучение" },
-  { href: "/board", label: "Совет управленцев" },
-  { href: "/adviser", label: "Наставничество" },
-  { href: "/consulting", label: "Консалтинг" },
-  { href: "/blog", label: "Блог" },
-];
-
 export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, visibleItems }: HeroCardProps) {
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const topNumberParts = useMemo(
     () =>
       highlights.map((item) => {
@@ -79,19 +70,6 @@ export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, 
     };
   }, [highlights, topNumberParts, visibleItems]);
 
-  useEffect(() => {
-    if (!isNavOpen) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsNavOpen(false);
-      }
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isNavOpen]);
-
   return (
     <>
       <div
@@ -114,75 +92,8 @@ export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, 
           <div className="absolute inset-0 bg-[linear-gradient(90deg,#050505_0%,#050505_44%,rgba(5,5,5,0.88)_58%,rgba(5,5,5,0)_78%)]" />
         </div>
 
-        <div className="relative z-30 flex items-start justify-end px-6 pt-6 md:px-10 md:pt-8">
-          <div className="relative w-full">
-            <nav
-              aria-hidden={!isNavOpen}
-              className={`absolute left-1/2 top-1 z-20 flex max-w-[90vw] flex-wrap items-center justify-center gap-x-5 gap-y-1.5 whitespace-nowrap transition-[opacity,transform] duration-200 ease-linear md:top-[2px] md:flex-nowrap md:gap-x-7 ${
-                isNavOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-              }`}
-              style={{
-                transform: isNavOpen ? "translate(-50%, 0)" : "translate(calc(-50% + 30vw), -4px)",
-              }}
-            >
-              {landingPrimaryNav.map((item, index) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsNavOpen(false)}
-                  className={`group relative inline-flex items-center pb-1 text-[11px] font-semibold uppercase tracking-[0.09em] text-white/86 transition-[opacity,transform,color] duration-200 ease-linear hover:text-white md:text-[12px] ${
-                    isNavOpen ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
-                  }`}
-                  style={{ transitionDelay: isNavOpen ? `${30 + index * 20}ms` : "0ms" }}
-                >
-                  <span className="relative transition-all duration-200 ease-linear group-hover:-translate-y-px group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.18)]">
-                    {item.label}
-                  </span>
-                  <span className="pointer-events-none absolute bottom-0 left-0 h-px w-full bg-white/18" />
-                  <span className="pointer-events-none absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-[#efe0c1] transition-transform duration-200 ease-linear group-hover:scale-x-100" />
-                </Link>
-              ))}
-            </nav>
-
-            <div className="relative z-10 ml-auto flex w-fit items-center justify-end gap-4 md:gap-6">
-              {/*
-              <div className="select-none text-sm font-medium tracking-wide text-white/70">
-                <span className="text-white/85">ru</span>
-                <span className="px-2 text-white/35">/</span>
-                <span className="hover:text-white/85 transition-colors">en</span>
-              </div>
-              */}
-              <button
-                type="button"
-                aria-label={isNavOpen ? "close menu" : "open menu"}
-                aria-expanded={isNavOpen}
-                onClick={() => setIsNavOpen((prev) => !prev)}
-                className={`relative flex h-9 items-center justify-center overflow-hidden border transition-all duration-200 ease-linear ${
-                  isNavOpen
-                    ? "w-[52px] rounded-[999px] border-white/42 bg-white/[0.08] text-white"
-                    : "w-9 rounded-full border-white/16 bg-white/[0.04] text-white/72 hover:border-white/40 hover:text-white hover:bg-white/[0.08]"
-                }`}
-              >
-                <span className="relative block h-3 w-6">
-                  {[0, 1, 2].map((dotIndex) => {
-                    const openX = (dotIndex - 1) * 6;
-                    const closedY = (dotIndex - 1) * 4;
-                    return (
-                      <span
-                        key={dotIndex}
-                        className="absolute left-1/2 top-1/2 h-[3px] w-[3px] rounded-full bg-current transition-all duration-200 ease-linear"
-                        style={{
-                          transform: isNavOpen
-                            ? `translate(calc(-50% + ${openX}px), -50%) scale(${dotIndex === 1 ? 1.14 : 1})`
-                            : `translate(-50%, calc(-50% + ${closedY}px)) scale(1)`,
-                        }}
-                      />
-                    );
-                  })}
-                </span>
-              </button>
-            </div>
-          </div>
+        <div className="relative z-30 px-6 pt-6 md:px-10 md:pt-8">
+          <LandingPrimaryNav activeHref="/education" />
         </div>
 
         <div className="relative z-10 px-6 md:px-10">
