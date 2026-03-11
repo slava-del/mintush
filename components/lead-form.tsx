@@ -17,7 +17,7 @@ export function LeadForm({ variant = "dark", submitLabel = "Подать зая�
   const isDark = variant === "dark"
 
   const inputBase =
-    "w-full rounded-[12px] px-4 py-3 text-body-lg border transition-colors focus:outline-none focus:ring-1 bg-transparent"
+    "w-full px-4 py-3 text-body-lg border transition-colors focus:outline-none focus:ring-1 bg-transparent"
 
   const inputTone = isDark
     ? "border-white/25 text-white placeholder:text-white/35 focus:ring-white/45 focus:border-white/45"
@@ -63,7 +63,7 @@ export function LeadForm({ variant = "dark", submitLabel = "Подать зая�
         </p>
         <button
           type="submit"
-          className="rounded-[12px] px-6 py-3 text-small font-medium tracking-wide bg-accent text-accent-foreground hover:bg-[var(--accent-hover)] transition-colors"
+          className="px-6 py-3 text-small font-medium tracking-wide bg-accent text-accent-foreground hover:bg-[var(--accent-hover)] transition-colors"
         >
           {submitLabel}
         </button>
