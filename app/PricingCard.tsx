@@ -18,13 +18,13 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
             <h2 className="text-[40px] font-extrabold leading-[1.03] tracking-[-0.03em] text-white md:text-[56px]">
-              Форматы участия
+              Продукты
             </h2>
             <p className="mt-2 text-[17px] font-medium leading-[1.35] text-white/62 md:text-[20px]">
-              Выберите формат, который подходит под ваш текущий запрос. Условия участия уже указаны на карточках.
+              Три продукта для руководителей: обучение, сильное окружение и персональная работа под ваш текущий
+              запрос.
             </p>
           </div>
-
         </div>
 
         <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -34,7 +34,7 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
             return (
               <article
                 key={plan.name}
-                className="rounded-[22px] border border-white/14 bg-black/45 p-5 md:p-6"
+                className="flex h-full flex-col rounded-[22px] border border-white/14 bg-black/45 p-5 md:p-6"
               >
                 <h3 className="text-[28px] font-extrabold leading-[1.03] tracking-[-0.02em] text-white md:text-[34px]">
                   {plan.name}
@@ -60,7 +60,7 @@ export const PricingCard = memo(function PricingCard({ cardRef, plans }: Pricing
                   ))}
                 </div>
 
-                <div className="mt-6 flex flex-wrap items-center gap-2.5">
+                <div className="mt-auto flex flex-wrap items-center gap-2.5 pt-6">
                   <a
                     href={plan.primaryHref}
                     className="inline-flex items-center rounded-[12px] bg-[#e7d2ad] px-4 py-2 text-[13px] font-semibold text-black transition hover:translate-y-[-1px]"

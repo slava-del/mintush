@@ -3,6 +3,7 @@
 import { Manrope } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 import { AboutCenterCard } from "./AboutCenterCard";
+import { BusinessArchitectureCard } from "./BusinessArchitectureCard";
 import { HeroCard } from "./HeroCard";
 import { LiveSessionsCard } from "./LiveSessionsCard";
 import { PricingCard } from "./PricingCard";
@@ -91,9 +92,9 @@ export default function Page() {
 
         <PricingCard cardRef={fourthCardRef} plans={pricingPlans} />
 
-        <VideosCard cardRef={fifthCardRef} youtubeVideos={youtubeVideos} />
+        <BusinessArchitectureCard />
 
-        {/* <BusinessArchitectureCard /> */}
+        <VideosCard cardRef={fifthCardRef} youtubeVideos={youtubeVideos} />
 
         <LiveSessionsCard
           cardRef={sixthCardRef}
