@@ -1,7 +1,5 @@
 import type { Metadata } from "next"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { ConsultingPageContent } from "@/components/consulting-page"
+import { ConsultingPageContent } from "./consulting-page"
 
 export const metadata: Metadata = {
   title: "Консалтинг — Архитектура бизнеса",
@@ -9,11 +7,5 @@ export const metadata: Metadata = {
 }
 
 export default function ConsultingPage() {
-  return (
-    <>
-      <SiteHeader ctaHref="#form" ctaLabel="Получить консультацию" />
-      <ConsultingPageContent />
-      <SiteFooter />
-    </>
-  )
+  return <ConsultingPageContent />
 }
