@@ -3,7 +3,7 @@ import { contactConfig } from "@/lib/site-config"
 
 export function LandingFooter() {
   return (
-    <footer className="mt-6 border-t border-white/10 bg-[#020202] px-6 py-9 md:px-10 md:py-10">
+    <footer id="contact" className="mt-6 border-t border-white/10 bg-[#020202] px-6 py-9 md:px-10 md:py-10">
       <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/42">Юридическая информация</p>

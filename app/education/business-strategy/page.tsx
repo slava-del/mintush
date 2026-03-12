@@ -7,6 +7,7 @@ import { LandingPrimaryNav } from "@/components/landing-primary-nav"
 import { contactConfig, mentorSummary } from "@/lib/site-config"
 import { PenUnderlineOnView } from "./PenUnderlineOnView"
 import { AlumniChatSection } from "../landing/sections/AlumniChatSection"
+import styles from "./page.module.css"
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -184,6 +185,20 @@ const expertStats = [
   { value: "Board", label: "директора и наблюдательные советы" },
 ]
 
+const strategyTopTopics = [
+  { label: "Старт", href: "#top" },
+  { label: "Ценность", href: "#value" },
+  { label: "Для кого", href: "#who-for" },
+  { label: "Результат", href: "#result" },
+  { label: "Программа", href: "#program" },
+  { label: "Тарифы", href: "#tariffs" },
+  { label: "Вебинар", href: "#free-webinar" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Контакты", href: "#contact" },
+]
+
+const strategyMarqueeTopics = [...strategyTopTopics, ...strategyTopTopics, ...strategyTopTopics]
+
 function StrategyQuestionVisual({ id }: { id: "direction" | "metrics" | "decisions" }) {
   if (id === "direction") {
     return (
@@ -252,18 +267,39 @@ function StrategyQuestionVisual({ id }: { id: "direction" | "metrics" | "decisio
 export default function BusinessStrategyPage() {
   return (
     <main
-      className={`${manrope.className} min-h-screen bg-[radial-gradient(circle_at_50%_-20%,rgba(231,210,173,0.22),rgba(11,11,11,0)_40%),#0b0b0b]`}
+      className={`${manrope.className} min-h-screen bg-black p-0 md:p-6`}
     >
-      <div className="relative min-h-screen overflow-hidden bg-[#050505]">
-        <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050505]/88 px-6 backdrop-blur-md md:px-12">
-          <div className="mx-auto max-w-[1380px] py-4">
-            <LandingPrimaryNav activeHref="/education" mode="brand-hamburger" contactHref="#contact" />
+      <section className="relative w-full">
+        <div
+          className={`${styles.scrollRoot} relative overflow-x-hidden bg-[#050505] md:h-[calc(100vh-3rem)] md:overflow-y-auto md:rounded-[28px] md:border md:border-[#e7d2ad]/45 md:shadow-[0_40px_140px_rgba(0,0,0,0.65)]`}
+        >
+          <div className="sticky top-0 z-50 overflow-hidden border-b border-black/15 bg-[#e7d2ad] text-black">
+            <div className={`${styles.topicsTrack} flex w-max items-center`}>
+              {strategyMarqueeTopics.map((topic, index) => (
+                <a
+                  key={`${topic.label}-${index}`}
+                  href={topic.href}
+                  className="group border-r border-black/15 px-8 py-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-black/92 transition hover:bg-black/7 hover:text-black last:border-r-0"
+                >
+                  <span className="relative inline-block pb-[2px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-black/65 after:transition-transform after:duration-200 group-hover:after:scale-x-100">
+                    {topic.label}
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
-        </header>
 
-        <section id="top" className="relative overflow-hidden px-6 pb-16 pt-10 md:px-12 md:pb-20 md:pt-12">
+          <div className="relative overflow-hidden bg-[#050505]">
+            <section id="top" className="relative overflow-hidden px-6 pb-16 pt-20 md:px-12 md:pb-20 md:pt-24">
+          <div className="pointer-events-none absolute inset-x-0 top-5 z-40 px-6 md:top-6 md:px-12">
+            <div className="mx-auto flex max-w-[1380px] justify-end">
+              <div className="pointer-events-auto">
+                <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
+              </div>
+            </div>
+          </div>
           <div className="pointer-events-none absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 rounded-full bg-[#e7d2ad]/18 blur-3xl" />
-          <div className="pointer-events-none absolute right-10 top-28 h-44 w-44 rounded-full bg-[#e7d2ad]/12 blur-3xl" />
+          <div className="pointer-events-none absolute right-10 top-24 h-44 w-44 rounded-full bg-[#e7d2ad]/12 blur-3xl" />
           <div className="mx-auto grid max-w-[1380px] items-start gap-10 lg:grid-cols-[1.08fr_0.92fr] xl:gap-14">
             <div className="relative z-10">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#e7d2ad]/78">Практический курс</p>
@@ -312,7 +348,7 @@ export default function BusinessStrategyPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
+        <section id="value" className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
           <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#e7d2ad]/78">Что дает курс</p>
           <div className="mt-5 overflow-hidden rounded-[20px] border border-[#e7d2ad]/34 bg-[linear-gradient(90deg,rgba(3,3,3,0.92)_0%,rgba(6,6,6,0.98)_52%,rgba(10,10,10,0.92)_100%)]">
             <div className="grid md:grid-cols-3">
@@ -338,7 +374,7 @@ export default function BusinessStrategyPage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
+        <section id="who-for" className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
           <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
             <article className="rounded-[24px] border border-[#47d17b]/26 bg-[radial-gradient(circle_at_20%_18%,rgba(71,209,123,0.20),rgba(7,7,7,0)_45%),#070707] p-8 md:p-10">
               <h2 className="text-[33px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[44px]">Кому подойдёт</h2>
@@ -428,7 +464,7 @@ export default function BusinessStrategyPage() {
           </article>
         </section>
 
-        <section className="mx-auto max-w-[1380px] px-6 pb-16 md:px-12 md:pb-20">
+        <section id="result" className="mx-auto max-w-[1380px] px-6 pb-16 md:px-12 md:pb-20">
           <article className="rounded-[24px] border border-[#e7d2ad]/14 bg-[#070707]/88 p-10 md:p-12">
             <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-6">
               <div className="max-w-[780px]">
@@ -732,7 +768,10 @@ export default function BusinessStrategyPage() {
             copywrite 2023-2026 MINTUSH ©
           </p>
         </footer>
-      </div>
+          </div>
+        </div>
+
+      </section>
     </main>
   )
 }

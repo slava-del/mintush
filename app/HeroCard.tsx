@@ -93,7 +93,7 @@ export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, 
         </div>
 
         <div className="relative z-30 px-6 pt-6 md:px-10 md:pt-8">
-          <LandingPrimaryNav activeHref="/education" />
+          <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
         </div>
 
         <div className="relative z-10 px-6 md:px-10">

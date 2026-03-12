@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
-import { Mail, Menu, Send, X } from "lucide-react"
+import { Instagram, Linkedin, Mail, Send } from "lucide-react"
 import { contactConfig } from "@/lib/site-config"
 
 export type LandingPrimaryNavItem = {
@@ -11,6 +12,7 @@ export type LandingPrimaryNavItem = {
 }
 
 export const landingPrimaryNavItems: LandingPrimaryNavItem[] = [
+  { href: "/", label: "Главная" },
   { href: "/education", label: "Обучение" },
   { href: "/board", label: "Совет управленцев" },
   { href: "/adviser", label: "Наставничество" },
@@ -23,8 +25,6 @@ type LandingPrimaryNavProps = {
   activeHref?: string
   mode?: "inline" | "brand-hamburger"
   contactHref?: string
-  logoHref?: string
-  logoLabel?: string
 }
 
 export function LandingPrimaryNav({
@@ -32,11 +32,22 @@ export function LandingPrimaryNav({
   activeHref,
   mode = "inline",
   contactHref = "#contact",
-  logoHref = "/",
-  logoLabel = "OLEG MINTUSH",
 }: LandingPrimaryNavProps) {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
+
+  const normalizedPathname = pathname && pathname !== "/" ? pathname.replace(/\/+$/, "") : pathname || "/"
+
+  const isPathActive = (href: string) => {
+    if (!href.startsWith("/")) return false
+    if (href === "/") return normalizedPathname === "/"
+    const normalizedHref = href.replace(/\/+$/, "")
+    return normalizedPathname === normalizedHref || normalizedPathname.startsWith(`${normalizedHref}/`)
+  }
+
+  const resolvedActiveHref =
+    activeHref ?? items.find((item) => isPathActive(item.href))?.href
 
   useEffect(() => {
     if (!isOpen) return
@@ -65,33 +76,20 @@ export function LandingPrimaryNav({
 
   if (mode === "brand-hamburger") {
     return (
-      <div className="relative flex items-center justify-between gap-4 text-[#EDEDED]" ref={menuRef}>
-        <Link href={logoHref} className="inline-flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-full border border-[#e7d2ad]/45 bg-[#070707] text-[12px] font-extrabold tracking-[0.16em] text-[#EDEDED]">
-            OM
-          </span>
-          <span className="hidden text-[12px] font-semibold uppercase tracking-[0.14em] text-[#EDEDED]/86 sm:inline">{logoLabel}</span>
-        </Link>
-
+      <div className="relative flex items-center justify-end gap-2 text-[#EDEDED]" ref={menuRef}>
         <div className="ml-auto flex items-center gap-2">
-          <div className="hidden items-center rounded-full border border-[#e7d2ad]/45 bg-[#070707]/88 p-1 pl-3 sm:flex">
-            <a href={contactHref} className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/88 transition hover:text-[#EDEDED]">
+          <div className="hidden items-center rounded-full border border-[#e7d2ad]/45 bg-[#070707]/88 p-1 pl-2.5 pr-2.5 sm:flex">
+            <a
+              href={contactHref}
+              className="inline-flex h-8 items-center rounded-full px-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/88 transition hover:bg-white/8 hover:text-[#EDEDED]"
+            >
               Связаться
             </a>
-            <span className="mx-2 h-4 w-px bg-[#e7d2ad]/22" aria-hidden="true" />
-            <a
-              href={contactConfig.telegramUrl}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Написать в Telegram"
-              className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
-            >
-              <Send className="h-4 w-4" />
-            </a>
+            <span className="mx-1.5 h-4 w-px bg-[#e7d2ad]/22" aria-hidden="true" />
             <a
               href={`mailto:${contactConfig.email}`}
               aria-label="Написать на почту"
-              className="grid h-8 w-8 place-items-center rounded-full text-[#EDEDED]/84 transition hover:bg-white/8 hover:text-[#EDEDED]"
+              className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
             >
               <Mail className="h-4 w-4" />
             </a>
@@ -102,36 +100,65 @@ export function LandingPrimaryNav({
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((prev) => !prev)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#e7d2ad]/45 bg-[#070707]/88 text-[#EDEDED] transition hover:border-[#e7d2ad] hover:bg-[#0b0b0b]"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#e7d2ad]/45 bg-[#070707]/88 text-[#EDEDED] transition-colors duration-200 hover:border-[#e7d2ad] hover:bg-[#0b0b0b]"
           >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <span aria-hidden="true" className="relative block h-[14px] w-[18px]">
+              <span
+                className={`absolute left-0 top-0 h-[2px] w-full rounded-full bg-current transition-transform duration-200 ease-out ${
+                  isOpen ? "translate-y-[6px] rotate-45" : "translate-y-0 rotate-0"
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[6px] h-[2px] w-full rounded-full bg-current transition-all duration-150 ease-out ${
+                  isOpen ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-[12px] h-[2px] w-full rounded-full bg-current transition-transform duration-200 ease-out ${
+                  isOpen ? "translate-y-[-6px] -rotate-45" : "translate-y-0 rotate-0"
+                }`}
+              />
+            </span>
           </button>
         </div>
 
-        {isOpen && (
-          <div className="absolute right-0 top-[calc(100%+12px)] z-50 w-[min(92vw,340px)] overflow-hidden rounded-[18px] border border-[#e7d2ad]/24 bg-[#070707] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.5)]">
-            <nav className="grid gap-1">
-              {items.map((item) => {
-                const isActive = activeHref === item.href
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`rounded-[12px] px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.08em] transition ${
-                      isActive ? "bg-[#e7d2ad] text-black" : "text-[#EDEDED]/84 hover:bg-white/8 hover:text-[#EDEDED]"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </nav>
+        <div
+          className={`absolute right-0 top-[calc(100%+12px)] z-50 w-[min(92vw,340px)] overflow-hidden rounded-[18px] border border-[#e7d2ad]/26 bg-[#070707]/66 p-3 shadow-[0_24px_60px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 ease-out ${
+            isOpen ? "pointer-events-auto translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-2 scale-95 opacity-0"
+          }`}
+          aria-hidden={!isOpen}
+        >
+          <nav className="grid gap-1">
+            {items.map((item, index) => {
+              const isActive = resolvedActiveHref === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={`rounded-[12px] border px-3 py-2 text-[13px] font-semibold uppercase tracking-[0.08em] transition-all duration-200 ${
+                    isActive
+                      ? "border-[#e7d2ad] bg-[#e7d2ad] text-black hover:brightness-95"
+                      : "border-transparent text-[#EDEDED]/84 hover:border-white/18 hover:bg-white/8 hover:text-[#EDEDED]"
+                  } ${isOpen ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"}`}
+                  style={{ transitionDelay: isOpen ? `${40 + index * 20}ms` : "0ms" }}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
 
-            <div className="mt-3 flex items-center rounded-[12px] border border-[#e7d2ad]/24 bg-[#0b0b0b] p-1 pl-3">
-              <a href={contactHref} onClick={() => setIsOpen(false)} className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/88 transition hover:text-[#EDEDED]">
-                Связаться
-              </a>
+          <div
+            className={`mt-3 flex items-center rounded-[12px] border border-[#e7d2ad]/24 bg-[#0b0b0b]/72 p-1 pl-3 pr-2 transition-all duration-200 ${
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+            }`}
+            style={{ transitionDelay: isOpen ? `${70 + items.length * 20}ms` : "0ms" }}
+          >
+            <a href={contactHref} onClick={() => setIsOpen(false)} className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/88 transition hover:text-[#EDEDED]">
+              Связаться
+            </a>
+            <div className="ml-auto flex items-center">
               <span className="mx-2 h-4 w-px bg-[#e7d2ad]/22" aria-hidden="true" />
               <a
                 href={contactConfig.telegramUrl}
@@ -143,15 +170,31 @@ export function LandingPrimaryNav({
                 <Send className="h-4 w-4" />
               </a>
               <a
+                href={contactHref}
+                onClick={() => setIsOpen(false)}
+                aria-label="Перейти к контактам"
+                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href={contactHref}
+                onClick={() => setIsOpen(false)}
+                aria-label="Перейти к контактам через LinkedIn"
+                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
                 href={`mailto:${contactConfig.email}`}
                 aria-label="Написать на почту"
-                className="grid h-8 w-8 place-items-center rounded-full text-[#EDEDED]/84 transition hover:bg-white/8 hover:text-[#EDEDED]"
+                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
               >
                 <Mail className="h-4 w-4" />
               </a>
             </div>
           </div>
-        )}
+        </div>
       </div>
     )
   }
@@ -160,7 +203,7 @@ export function LandingPrimaryNav({
     <div className="flex items-center justify-between gap-5">
       <nav className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto pb-1 sm:gap-7 md:gap-9">
         {items.map((item) => {
-          const isActive = activeHref === item.href
+          const isActive = resolvedActiveHref === item.href
 
           return (
             <Link

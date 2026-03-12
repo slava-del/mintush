@@ -1,3 +1,5 @@
+import { LandingPrimaryNav } from "@/components/landing-primary-nav"
+
 type HeroSectionProps = {
   heroWordPrimary: string
   heroWordSecondary: string
@@ -16,6 +18,9 @@ export function HeroSection({
       data-section-id="hero"
       className="relative flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center px-6 py-20 md:px-10"
     >
+      <div className="absolute left-6 right-6 top-6 z-20 flex justify-end md:left-10 md:right-10 md:top-8">
+        <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
+      </div>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(231,210,173,0.22)_0%,rgba(5,5,5,0)_56%)]" />
       <div className="relative z-10 mx-auto max-w-[1320px]">
         <h1

@@ -27,7 +27,7 @@ export const LiveSessionsCard = memo(function LiveSessionsCard({
           className="flex-1"
         />
 
-        <footer className="mt-auto flex-none border-t border-black/18 px-6 py-8 md:px-10 md:py-9">
+        <footer id="contact" className="mt-auto flex-none border-t border-black/18 px-6 py-8 md:px-10 md:py-9">
           <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-black/45">
