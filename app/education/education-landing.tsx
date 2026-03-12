@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import { LandingStyles } from "./landing/LandingStyles"
 import {
   strategyJourneySteps,
+  chapterBackgrounds,
   courseThemes,
   courses,
   curriculumBlocks,
@@ -47,9 +48,12 @@ export function EducationLanding() {
   const [openerClosing, setOpenerClosing] = useState(false)
   const [morphIndex, setMorphIndex] = useState(0)
   const [selectedRole, setSelectedRole] = useState<RoleKey>("team")
+  const [strategyProgress, setStrategyProgress] = useState(0)
   const cardRef = useRef<HTMLDivElement | null>(null)
+  const strategySectionRef = useRef<HTMLDivElement | null>(null)
 
   const profile = roleProfiles[selectedRole]
+  const strategyStep = Math.min(Math.floor(strategyProgress * strategyJourneySteps.length), strategyJourneySteps.length - 1)
 
   const closeOpener = () => {
     setOpenerClosing(true)
@@ -101,6 +105,49 @@ export function EducationLanding() {
     }
   }, [showOpener])
 
+  useEffect(() => {
+    const container = cardRef.current
+    const section = strategySectionRef.current
+    if (!container || !section) return
+
+    let rafId = 0
+
+    const updateProgress = () => {
+      rafId = 0
+
+      const canScrollContainer = container.scrollHeight > container.clientHeight + 8
+      const sectionRect = section.getBoundingClientRect()
+      const viewportHeight = canScrollContainer ? container.clientHeight : window.innerHeight
+      const sectionTop = canScrollContainer
+        ? sectionRect.top - container.getBoundingClientRect().top + container.scrollTop
+        : sectionRect.top + window.scrollY
+      const scrollTop = canScrollContainer ? container.scrollTop : window.scrollY
+      const distance = Math.max(section.offsetHeight - viewportHeight, 1)
+      const next = Math.min(Math.max((scrollTop - sectionTop) / distance, 0), 1)
+
+      setStrategyProgress((prev) => (Math.abs(prev - next) > 0.004 ? next : prev))
+    }
+
+    const onScroll = () => {
+      if (rafId) return
+      rafId = window.requestAnimationFrame(updateProgress)
+    }
+
+    updateProgress()
+    container.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+
+    return () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId)
+      }
+      container.removeEventListener("scroll", onScroll)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [])
+
   return (
     <>
       <OpenerOverlay showOpener={showOpener} openerClosing={openerClosing} onClose={closeOpener} />
@@ -131,7 +178,14 @@ export function EducationLanding() {
 
             <GptVsSystemSection gptMessages={gptMessages} curriculumBlocks={curriculumBlocks} />
 
-            <StrategySection steps={strategyJourneySteps} />
+            <StrategySection
+              strategySectionRef={strategySectionRef}
+              chapterBackgrounds={chapterBackgrounds}
+              strategyStep={strategyStep}
+              strategyProgress={strategyProgress}
+              steps={strategyJourneySteps}
+              onScrollToCourses={scrollToCourses}
+            />
 
             <LearningSection
               learningStats={learningStats}
