@@ -81,7 +81,7 @@ const mobileSchema = createSchemaGeometry(mobileNodes, MOBILE_NODE_W, MOBILE_NOD
 
 export const BusinessArchitectureCard = memo(function BusinessArchitectureCard() {
   const [hoveredNode, setHoveredNode] = useState<NodeId | null>(null);
-  const [selectedNode, setSelectedNode] = useState<NodeId | null>(null);
+  const [selectedNode, setSelectedNode] = useState<NodeId | null>("processes");
 
   const activeNodeId = hoveredNode ?? selectedNode;
 
@@ -119,7 +119,7 @@ export const BusinessArchitectureCard = memo(function BusinessArchitectureCard()
                   Получить консультацию
                 </span>
 
-                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full bg-white/[0.08] text-[#ead6b0] transition duration-300 group-hover:bg-white/[0.14]">
+                <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-full bg-white/[0.08] text-[#ead6b0] transition duration-300 group-hover:rotate-45 group-hover:bg-white/[0.14]">
                   <svg
                     width="16"
                     height="16"
@@ -261,7 +261,7 @@ export const BusinessArchitectureCard = memo(function BusinessArchitectureCard()
                 Получить консультацию
               </span>
 
-              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full bg-white/[0.08] text-[#ead6b0] transition duration-300 group-hover:bg-white/[0.14]">
+              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-full bg-white/[0.08] text-[#ead6b0] transition duration-300 group-hover:rotate-45 group-hover:bg-white/[0.14]">
                 <svg
                   width="15"
                   height="15"
