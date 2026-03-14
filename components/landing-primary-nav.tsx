@@ -161,6 +161,21 @@ export function LandingPrimaryNav({
             <div className="ml-auto flex items-center">
               <span className="mx-2 h-4 w-px bg-[#e7d2ad]/22" aria-hidden="true" />
               <a
+                href={contactHref}
+                onClick={() => setIsOpen(false)}
+                aria-label="Перейти к контактам через LinkedIn"
+                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={`mailto:${contactConfig.email}`}
+                aria-label="Написать на почту"
+                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+              <a
                 href={contactConfig.telegramUrl}
                 target="_blank"
                 rel="noreferrer"
@@ -176,21 +191,6 @@ export function LandingPrimaryNav({
                 className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
               >
                 <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href={contactHref}
-                onClick={() => setIsOpen(false)}
-                aria-label="Перейти к контактам через LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
-              >
-                <Linkedin className="h-4 w-4" />
-              </a>
-              <a
-                href={`mailto:${contactConfig.email}`}
-                aria-label="Написать на почту"
-                className="grid h-8 w-8 place-items-center rounded-full text-[#e7d2ad] transition hover:bg-[#e7d2ad]/14"
-              >
-                <Mail className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -1,0 +1,50 @@
+.topicsTrack {
+  animation: strategyTopics 34s linear infinite;
+  will-change: transform;
+}
+
+.scrollRoot {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(231, 210, 173, 0.55) rgba(255, 255, 255, 0.06);
+}
+
+.scrollRoot::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.scrollRoot::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+}
+
+.scrollRoot::-webkit-scrollbar-thumb {
+  background: rgba(231, 210, 173, 0.55);
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.scrollRoot::-webkit-scrollbar-thumb:hover {
+  background: rgba(231, 210, 173, 0.75);
+}
+
+@keyframes strategyTopics {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topicsTrack {
+    animation: none;
+  }
+
+  .scrollRoot {
+    scroll-behavior: auto;
+  }
+}

@@ -42,9 +42,9 @@ export function LiveSessionsShowcase({
             Чат выпускников
           </h2>
 
-          <p className="mt-4 max-w-[34ch] text-[16px] leading-[1.38] text-black/82 md:text-[18px]">
-            Пространство для руководителей, которые уже прошли одну или несколько наших программ. Здесь появляются
-            связи, идеи и решения, которые сложно получить в одиночку.
+          <p className="mt-4 max-w-[36ch] text-[16px] leading-[1.38] text-black/82 md:text-[18px]">
+            Для участников, кто прошёл одну или несколько наших программ, мы создали пространство для общения
+            руководителей. Здесь появляются связи, идеи и решения, которые сложно получить в одиночку.
           </p>
 
           <ul className="mt-7 space-y-3.5">
@@ -54,7 +54,15 @@ export function LiveSessionsShowcase({
             </li>
             <li className="flex items-start gap-3 text-[15px] font-medium leading-[1.34] text-black/84 md:text-[16px]">
               <span aria-hidden="true" className="mt-[11px] inline-block h-px w-4 flex-shrink-0 bg-black/46" />
-              ежемесячный нетворк и выступления гостей
+              доступ к анкетам выпускников
+            </li>
+            <li className="flex items-start gap-3 text-[15px] font-medium leading-[1.34] text-black/84 md:text-[16px]">
+              <span aria-hidden="true" className="mt-[11px] inline-block h-px w-4 flex-shrink-0 bg-black/46" />
+              ежемесячный нетворк участников
+            </li>
+            <li className="flex items-start gap-3 text-[15px] font-medium leading-[1.34] text-black/84 md:text-[16px]">
+              <span aria-hidden="true" className="mt-[11px] inline-block h-px w-4 flex-shrink-0 bg-black/46" />
+              ежемесячное выступление приглашённого гостя
             </li>
             <li className="flex items-start gap-3 text-[15px] font-medium leading-[1.34] text-black/84 md:text-[16px]">
               <span aria-hidden="true" className="mt-[11px] inline-block h-px w-4 flex-shrink-0 bg-black/46" />
@@ -91,16 +99,7 @@ export function LiveSessionsShowcase({
               rel="noreferrer"
               className="inline-flex h-[56px] items-center gap-1.5 self-start px-1 py-1 text-[14px] font-semibold text-black/66 transition hover:text-black/86 md:text-[15px]"
             >
-              Подобрать формат в Telegram
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M8 16l8-8M10 8h6v6"
-                  stroke="currentColor"
-                  strokeWidth="2.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              Подобрать формат в Telegram ↗
             </a>
           </div>
         </div>

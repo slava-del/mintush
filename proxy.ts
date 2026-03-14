@@ -2,7 +2,9 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const ALLOWED_PATHS = new Set([
   "/",
+  "/business-management",
   "/education",
+  "/education/business-management",
   "/education/business-strategy",
   "/__404__",
 ]);
