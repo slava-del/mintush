@@ -7,7 +7,7 @@ export function LandingStyles() {
       }
 
       .strategy-stage {
-        top: calc((100vh - 1.5rem - 58vh) / 2);
+        top: calc((100vh - 1.5rem - 60vh) / 2);
       }
 
       .hero-letter {
@@ -113,13 +113,13 @@ export function LandingStyles() {
 
       @media (min-width: 640px) {
         .strategy-stage {
-          top: calc((100vh - 2rem - 58vh) / 2);
+          top: calc((100vh - 2rem - 60vh) / 2);
         }
       }
 
       @media (min-width: 768px) {
         .strategy-stage {
-          top: calc((100vh - 3rem - 58vh) / 2);
+          top: calc((100vh - 3rem - 60vh) / 2);
         }
       }
 

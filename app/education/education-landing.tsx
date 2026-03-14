@@ -51,6 +51,12 @@ export function EducationLanding() {
   const [strategyProgress, setStrategyProgress] = useState(0)
   const cardRef = useRef<HTMLDivElement | null>(null)
   const strategySectionRef = useRef<HTMLDivElement | null>(null)
+  const strategyProgressRef = useRef(0)
+  const strategyActivatedRef = useRef(false)
+  const strategyLockedRef = useRef(false)
+  const strategyIntroAnimatingRef = useRef(false)
+  const strategyIntroFrameRef = useRef(0)
+  const strategyMinimumProgressRef = useRef(0)
 
   const profile = roleProfiles[selectedRole]
   const strategyStep = Math.min(Math.floor(strategyProgress * strategyJourneySteps.length), strategyJourneySteps.length - 1)
@@ -106,11 +112,66 @@ export function EducationLanding() {
   }, [showOpener])
 
   useEffect(() => {
+    strategyProgressRef.current = strategyProgress
+  }, [strategyProgress])
+
+  useEffect(() => {
     const container = cardRef.current
     const section = strategySectionRef.current
     if (!container || !section) return
 
     let rafId = 0
+    const introTargetProgress = 0.24
+
+    const commitProgress = (next: number) => {
+      strategyProgressRef.current = next
+      setStrategyProgress((prev) => (Math.abs(prev - next) > 0.004 ? next : prev))
+    }
+
+    const finishStrategySequence = () => {
+      strategyLockedRef.current = true
+      strategyActivatedRef.current = true
+      strategyIntroAnimatingRef.current = false
+      strategyMinimumProgressRef.current = 1
+
+      if (strategyIntroFrameRef.current) {
+        window.cancelAnimationFrame(strategyIntroFrameRef.current)
+        strategyIntroFrameRef.current = 0
+      }
+
+      commitProgress(1)
+    }
+
+    const startStrategyIntro = () => {
+      if (strategyActivatedRef.current || strategyLockedRef.current) return
+
+      strategyActivatedRef.current = true
+      strategyIntroAnimatingRef.current = true
+
+      const startedAt = performance.now()
+      const duration = 680
+      const initialProgress = strategyProgressRef.current
+
+      const tick = (timestamp: number) => {
+        const progress = Math.min((timestamp - startedAt) / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        const next = initialProgress + (introTargetProgress - initialProgress) * eased
+
+        strategyMinimumProgressRef.current = next
+        commitProgress(next)
+
+        if (progress < 1) {
+          strategyIntroFrameRef.current = window.requestAnimationFrame(tick)
+          return
+        }
+
+        strategyIntroAnimatingRef.current = false
+        strategyIntroFrameRef.current = 0
+        strategyMinimumProgressRef.current = introTargetProgress
+      }
+
+      strategyIntroFrameRef.current = window.requestAnimationFrame(tick)
+    }
 
     const updateProgress = () => {
       rafId = 0
@@ -123,9 +184,31 @@ export function EducationLanding() {
         : sectionRect.top + window.scrollY
       const scrollTop = canScrollContainer ? container.scrollTop : window.scrollY
       const distance = Math.max(section.offsetHeight - viewportHeight, 1)
-      const next = Math.min(Math.max((scrollTop - sectionTop) / distance, 0), 1)
+      const rawProgress = Math.min(Math.max((scrollTop - sectionTop) / distance, 0), 1)
+      const hasEnteredSection = scrollTop + viewportHeight * 0.72 >= sectionTop
 
-      setStrategyProgress((prev) => (Math.abs(prev - next) > 0.004 ? next : prev))
+      if (strategyLockedRef.current) {
+        return
+      }
+
+      if (rawProgress >= 0.995 && strategyActivatedRef.current) {
+        finishStrategySequence()
+        return
+      }
+
+      if (!strategyActivatedRef.current && hasEnteredSection) {
+        startStrategyIntro()
+      }
+
+      if (strategyIntroAnimatingRef.current) return
+
+      if (!strategyActivatedRef.current) {
+        commitProgress(0)
+        return
+      }
+
+      const next = Math.max(strategyMinimumProgressRef.current, rawProgress)
+      commitProgress(next)
     }
 
     const onScroll = () => {
@@ -141,6 +224,9 @@ export function EducationLanding() {
     return () => {
       if (rafId) {
         window.cancelAnimationFrame(rafId)
+      }
+      if (strategyIntroFrameRef.current) {
+        window.cancelAnimationFrame(strategyIntroFrameRef.current)
       }
       container.removeEventListener("scroll", onScroll)
       window.removeEventListener("scroll", onScroll)
@@ -192,6 +278,7 @@ export function EducationLanding() {
               courseThemes={courseThemes}
               deliveryBlocks={deliveryBlocks}
               learningFormats={learningFormats}
+              scrollContainerRef={cardRef}
             />
 
             <CoursesSection courses={courses} />

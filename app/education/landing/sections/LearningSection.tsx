@@ -1,3 +1,7 @@
+"use client"
+
+import type { RefObject } from "react"
+import { useEffect, useRef, useState } from "react"
 import type { DeliveryBlock, LearningStat } from "../types"
 
 type LearningSectionProps = {
@@ -5,6 +9,33 @@ type LearningSectionProps = {
   courseThemes: string[]
   deliveryBlocks: DeliveryBlock[]
   learningFormats: string[]
+  scrollContainerRef: RefObject<HTMLDivElement | null>
+}
+
+const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
+const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3)
+
+function formatAnimatedValue(value: string, progress: number) {
+  const eased = easeOutCubic(progress)
+  const rangeMatch = value.match(/^(\d+)[–-](\d+)%$/)
+  if (rangeMatch) {
+    const minValue = Math.round(Number(rangeMatch[1]) * eased)
+    const maxValue = Math.round(Number(rangeMatch[2]) * eased)
+    return `${minValue}–${Math.max(minValue, maxValue)}%`
+  }
+
+  const currencyMatch = value.match(/^\$([\d,]+)\+$/)
+  if (currencyMatch) {
+    const target = Number(currencyMatch[1].replaceAll(",", ""))
+    return `$${Math.round(target * eased).toLocaleString("en-US")}+`
+  }
+
+  const prefixMatch = value.match(/^до (\d+)%$/)
+  if (prefixMatch) {
+    return `до ${Math.round(Number(prefixMatch[1]) * eased)}%`
+  }
+
+  return value
 }
 
 export function LearningSection({
@@ -12,9 +43,72 @@ export function LearningSection({
   courseThemes,
   deliveryBlocks,
   learningFormats,
+  scrollContainerRef,
 }: LearningSectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const animationFrameRef = useRef(0)
+  const hasStartedAnimationRef = useRef(false)
+  const [statsStarted, setStatsStarted] = useState(false)
+  const [countProgress, setCountProgress] = useState(0)
+
+  useEffect(() => {
+    const node = sectionRef.current
+    if (!node) return
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (reduceMotion) {
+      setStatsStarted(true)
+      setCountProgress(1)
+      return
+    }
+
+    const root = scrollContainerRef.current
+    const canUseContainerRoot = !!root && root.scrollHeight > root.clientHeight + 8
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return
+        setStatsStarted(true)
+        observer.disconnect()
+      },
+      {
+        root: canUseContainerRoot ? root : null,
+        threshold: 0.38,
+      },
+    )
+
+    observer.observe(node)
+
+    return () => observer.disconnect()
+  }, [scrollContainerRef])
+
+  useEffect(() => {
+    if (!statsStarted) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (hasStartedAnimationRef.current) return
+
+    hasStartedAnimationRef.current = true
+    const startTime = performance.now()
+    const duration = 1600
+
+    const tick = (timestamp: number) => {
+      const next = clamp((timestamp - startTime) / duration, 0, 1)
+      setCountProgress(next)
+
+      if (next < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(tick)
+      }
+    }
+
+    animationFrameRef.current = window.requestAnimationFrame(tick)
+  }, [statsStarted, countProgress])
+
+  useEffect(() => {
+    return () => window.cancelAnimationFrame(animationFrameRef.current)
+  }, [])
+
   return (
-    <section data-section-id="learning" className="px-6 pb-12 md:px-10 md:pb-14">
+    <section ref={sectionRef} data-section-id="learning" className="px-6 pb-12 md:px-10 md:pb-14">
       <div className="mx-auto max-w-5xl rounded-[24px] border border-white/10 bg-[#060606] p-6 md:p-9">
         <h3 className="text-[32px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white md:text-[44px]">
           Сильное управление требует системного обучения
@@ -25,20 +119,27 @@ export function LearningSection({
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {learningStats.map((item) => (
-            <article key={item.value} className="rounded-[18px] border border-white/10 bg-[#0a0a0a] p-5">
-              <p className="text-[42px] font-extrabold leading-[0.95] tracking-[-0.03em] text-white md:text-[46px]">
-                {item.value}
-              </p>
-              <div className="mt-3 space-y-1">
-                {item.lines.map((line) => (
-                  <p key={line} className="text-[15px] leading-[1.3] text-white/72 md:text-[16px]">
-                    {line}
-                  </p>
-                ))}
-              </div>
-            </article>
-          ))}
+          {learningStats.map((item, index) => {
+            const itemProgress = clamp((countProgress - index * 0.12) / 0.88, 0, 1)
+
+            return (
+              <article
+                key={item.value}
+                className="rounded-[18px] border border-white/10 bg-[#0a0a0a] p-5"
+              >
+                <p className="tabular-nums text-[42px] font-extrabold leading-[0.95] tracking-[-0.03em] text-white md:text-[46px]">
+                  {formatAnimatedValue(item.value, itemProgress)}
+                </p>
+                <div className="mt-3 space-y-1">
+                  {item.lines.map((line) => (
+                    <p key={line} className="text-[15px] leading-[1.3] text-white/72 md:text-[16px]">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </article>
+            )
+          })}
         </div>
 
         <div className="mt-8 h-px bg-white/10" />

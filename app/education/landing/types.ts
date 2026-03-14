@@ -18,10 +18,10 @@ export type StoryChapter = {
 }
 
 export type JourneyStep = {
+  number: string
   title: string
-  subtitle: string
-  detail: string
-  cta: string
+  pillars: string[]
+  action: string
 }
 
 export type RoleProfile = {
