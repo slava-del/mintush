@@ -36,7 +36,7 @@ export function ResultSection({ items }: ResultSectionProps) {
                   <span className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-[#e7d2ad]/30 px-2 text-[12px] font-semibold tracking-[0.08em] text-[#e7d2ad]/85">
                     {item.id}
                   </span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#EDEDED]/40">Результат</span>
+                  <span className="h-px w-10 bg-[linear-gradient(90deg,rgba(231,210,173,0.34),rgba(231,210,173,0))]" />
                 </div>
                 <span className="text-[18px] leading-none text-[#e7d2ad]/38 transition group-hover:text-[#e7d2ad]/72">↗</span>
               </div>

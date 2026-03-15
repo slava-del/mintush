@@ -9,12 +9,8 @@ type BoardHeroSectionProps = {
 export function BoardHeroSection({ content }: BoardHeroSectionProps) {
   return (
     <section id="top" className="relative overflow-hidden px-6 md:px-10 lg:px-12 xl:px-14">
-      <div className="pointer-events-none absolute inset-x-0 top-6 z-40 md:top-7">
-        <div className="mx-auto flex w-full max-w-[1380px] justify-end">
-          <div className="pointer-events-auto">
-            <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
-          </div>
-        </div>
+      <div className="absolute left-6 right-6 top-6 z-40 flex justify-end md:left-10 md:right-10 md:top-8">
+        <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
       </div>
 
       <div className="pointer-events-none absolute left-[10%] top-12 h-56 w-56 rounded-full bg-[#e7d2ad]/13 blur-3xl" />

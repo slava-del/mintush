@@ -90,7 +90,7 @@ export const StartCard = memo(function StartCard({ cardRef, startFormats, startQ
                 <Link
                   key={format.id}
                   href={format.href}
-                  className={`group rounded-[20px] border px-4 py-3 transition-all duration-300 ${
+                  className={`group rounded-[18px] border px-4 py-2.5 transition-all duration-300 sm:rounded-[20px] sm:py-3 ${
                     isLeading
                       ? "border-[#e7d2ad]/45 bg-[#e7d2ad]/10 shadow-[0_0_0_1px_rgba(231,210,173,0.08)]"
                       : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]"
@@ -114,7 +114,7 @@ export const StartCard = memo(function StartCard({ cardRef, startFormats, startQ
                       {scores[format.id]} / {totalSteps}
                     </span>
                   </div>
-                  <div className="mt-3 h-[3px] rounded-full bg-white/8">
+                  <div className="mt-3 hidden h-[3px] rounded-full bg-white/8 sm:block">
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${
                         isLeading ? "bg-[#e7d2ad]" : "bg-white/16"

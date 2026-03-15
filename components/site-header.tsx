@@ -35,8 +35,8 @@ export function SiteHeader({
   const items = useMemo(() => navItems ?? primaryNav, [navItems])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#131625]/85 backdrop-blur-md border-b border-white/10">
-      <nav className="flex items-center px-6 py-4 md:px-10 lg:px-16">
+    <header className="fixed left-6 right-6 top-6 z-50 rounded-[18px] border border-white/14 bg-[#131625]/85 backdrop-blur-md md:left-10 md:right-10 md:top-8 lg:left-10 lg:right-10">
+      <nav className="flex items-center px-4 py-3 md:px-6 md:py-3.5 lg:px-8">
         <Link href="/" className="text-white font-serif text-xl tracking-tight flex items-baseline gap-3">
           <span>OM</span>
           <span className="hidden sm:inline text-small tracking-[0.12em]">OLEG MINTUSH</span>
@@ -115,7 +115,7 @@ export function SiteHeader({
 
         <button
           onClick={() => setOpen((prev) => !prev)}
-          className="md:hidden text-white flex flex-col gap-1.5"
+          className="ml-auto flex flex-col gap-1.5 text-white md:hidden"
           aria-label="Открыть меню"
         >
           <span className={`block w-6 h-px bg-white transition-transform ${open ? "rotate-45 translate-y-[4px]" : ""}`} />
@@ -125,7 +125,7 @@ export function SiteHeader({
       </nav>
 
       {open && (
-        <div className="md:hidden fixed inset-0 top-16 bg-[#131625]/95 backdrop-blur-sm flex flex-col items-start px-6 pt-10 gap-6 z-40 overflow-y-auto pb-10">
+        <div className="fixed inset-0 top-[6rem] z-40 flex flex-col items-start gap-6 overflow-y-auto bg-[#131625]/95 px-6 pb-10 pt-10 backdrop-blur-sm md:hidden">
           {items.map((item) => (
             <Link
               key={item.href}

@@ -53,12 +53,8 @@ export default function BusinessStrategyPage() {
 
           <div className="relative overflow-hidden bg-[#050505]">
             <section id="top" className="relative overflow-hidden px-6 pb-16 pt-20 md:px-12 md:pb-20 md:pt-24">
-              <div className="pointer-events-none absolute inset-x-0 top-5 z-40 px-6 md:top-6 md:px-12">
-                <div className="mx-auto flex max-w-[1380px] justify-end">
-                  <div className="pointer-events-auto">
-                    <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
-                  </div>
-                </div>
+              <div className="absolute left-6 right-6 top-6 z-40 flex justify-end md:left-10 md:right-10 md:top-8">
+                <LandingPrimaryNav mode="brand-hamburger" contactHref="#contact" />
               </div>
               <div className="pointer-events-none absolute left-1/2 top-6 h-56 w-56 -translate-x-1/2 rounded-full bg-[#e7d2ad]/18 blur-3xl" />
               <div className="pointer-events-none absolute right-10 top-24 h-44 w-44 rounded-full bg-[#e7d2ad]/12 blur-3xl" />

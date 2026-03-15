@@ -96,10 +96,10 @@ export const BusinessArchitectureCard = memo(function BusinessArchitectureCard()
 
       <div className="relative flex items-center px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-10 lg:min-h-[760px] lg:px-10 lg:py-12">
         <div className="mx-auto grid w-full max-w-[1540px] items-start gap-8 lg:grid-cols-[minmax(360px,500px)_minmax(620px,1fr)] lg:items-center lg:gap-10 xl:gap-16">
-          <div className="max-w-[470px]">
+          <div className="max-w-[470px] px-3 sm:px-4 lg:px-0">
             <h2
               className="font-extrabold leading-[0.86] tracking-[-0.058em] text-black"
-              style={{ fontSize: "clamp(44px, 14vw, 112px)" }}
+              style={{ fontSize: "clamp(30px, 11vw, 112px)" }}
             >
               Архитектура
               <br />

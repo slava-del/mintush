@@ -59,6 +59,7 @@ const trustedLogos = [
 export const AboutCenterCard = memo(function AboutCenterCard({ cardRef, ecosystemFormats }: AboutCenterCardProps) {
   return (
     <div
+      id="school-mintush"
       ref={cardRef}
       className="overflow-hidden rounded-[28px] border border-[#f6d8ab]/45 bg-[linear-gradient(180deg,#ead6b5_0%,#d7ab6a_58%,#bd8044_100%)] shadow-[0_40px_140px_rgba(0,0,0,0.65)]"
     >
