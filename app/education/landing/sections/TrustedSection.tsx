@@ -3,12 +3,18 @@ import type { TrustedLogo } from "../types"
 
 type TrustedSectionProps = {
   trustedLogos: TrustedLogo[]
+  maxWidthClassName?: string
+  sectionClassName?: string
 }
 
-export function TrustedSection({ trustedLogos }: TrustedSectionProps) {
+export function TrustedSection({
+  trustedLogos,
+  maxWidthClassName = "max-w-5xl",
+  sectionClassName = "",
+}: TrustedSectionProps) {
   return (
-    <section data-section-id="trusted" className="px-6 pb-12 md:px-10 md:pb-14">
-      <div className="mx-auto max-w-5xl rounded-[24px] border border-white/10 bg-[#030303] px-5 py-8 md:px-8 md:py-10">
+    <section data-section-id="trusted" className={`px-6 pb-12 md:px-10 md:pb-14 ${sectionClassName}`}>
+      <div className={`mx-auto ${maxWidthClassName} rounded-[24px] border border-white/10 bg-[#030303] px-5 py-8 md:px-8 md:py-10`}>
         <h3 className="text-center text-[34px] font-extrabold leading-[1.04] tracking-[-0.03em] text-white md:text-[50px]">
           Нам доверяют
         </h3>

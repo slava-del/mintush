@@ -63,7 +63,11 @@ export default function BoardPage() {
               </div>
             </div>
 
-            <TrustedSection trustedLogos={trustedLogos} />
+            <TrustedSection
+              trustedLogos={trustedLogos}
+              maxWidthClassName="max-w-[1280px]"
+              sectionClassName="lg:px-14"
+            />
             <AlumniChatSection />
             <ContactFooter />
           </div>
