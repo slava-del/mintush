@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const ALLOWED_PATHS = new Set([
   "/",
+  "/board",
   "/business-management",
   "/education",
   "/education/business-management",
