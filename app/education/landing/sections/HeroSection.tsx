@@ -5,6 +5,7 @@ type HeroSectionProps = {
   heroWordSecondary: string
   morphWord: string
   onScrollToCourses: () => void
+  revealEducationWord: boolean
 }
 
 export function HeroSection({
@@ -12,6 +13,7 @@ export function HeroSection({
   heroWordSecondary,
   morphWord,
   onScrollToCourses,
+  revealEducationWord,
 }: HeroSectionProps) {
   return (
     <section
@@ -42,8 +44,8 @@ export function HeroSection({
             {heroWordSecondary.split("").map((letter, index) => (
               <span
                 key={`${letter}-secondary-${index}`}
-                className="hero-letter inline-block"
-                style={{ animationDelay: `${(heroWordPrimary.length + index) * 70}ms` }}
+                className={`inline-block ${revealEducationWord ? "hero-letter-secondary-fast" : "hero-letter-secondary-hidden"}`}
+                style={revealEducationWord ? { animationDelay: `${index * 34}ms` } : undefined}
               >
                 {letter}
               </span>

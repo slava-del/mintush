@@ -8,6 +8,8 @@ type StrategySectionProps = {
   strategyProgress: number
   steps: JourneyStep[]
   onScrollToCourses: () => void
+  showScrollCue: boolean
+  compactAfterProgress: boolean
 }
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
@@ -20,6 +22,8 @@ export function StrategySection({
   strategyProgress,
   steps,
   onScrollToCourses,
+  showScrollCue,
+  compactAfterProgress,
 }: StrategySectionProps) {
   return (
     <section data-section-id="strategy" className="px-6 pb-16 md:px-10 md:pb-20">
@@ -154,10 +158,32 @@ export function StrategySection({
                 )
               })}
             </div>
+
+            {showScrollCue ? (
+              <div className="pointer-events-none absolute left-1/2 top-full z-30 -translate-x-1/2 pt-3 md:pt-2">
+                <span aria-hidden className="strategy-scroll-cue inline-flex text-white/58">
+                  <svg width="20" height="12" viewBox="0 0 16 10" fill="none">
+                    <path
+                      d="M2 2l6 6 6-6"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            ) : null}
           </div>
         </div>
 
-        <div className="h-[150vh] min-h-[900px]" />
+        <div
+          className="transition-[height,min-height] duration-700 ease-out"
+          style={{
+            height: compactAfterProgress ? "58vh" : "150vh",
+            minHeight: compactAfterProgress ? "360px" : "900px",
+          }}
+        />
       </div>
     </section>
   )

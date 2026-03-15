@@ -39,10 +39,15 @@ export function CoursesSection({ courses }: CoursesSectionProps) {
 
               <Link
                 href={course.href}
-                className="mt-auto inline-flex w-fit items-center gap-2 rounded-[14px] border border-[#e7d2ad]/45 px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad] hover:text-black"
+                className="group mt-auto inline-flex w-fit items-center gap-2 rounded-[14px] border border-[#e7d2ad]/45 px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad] hover:text-black"
               >
                 Посмотреть подробнее
-                <span aria-hidden="true">↗</span>
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform duration-300 ease-out group-hover:rotate-45"
+                >
+                  ↗
+                </span>
               </Link>
             </article>
           ))}

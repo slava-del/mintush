@@ -4,6 +4,13 @@ type OpenerOverlayProps = {
   onClose: () => void
 }
 
+const openerLines = [
+  ["67%", "руководителей"],
+  ["не", "внедряют", "стратегию"],
+  ["без", "управленческой"],
+  ["базы."],
+]
+
 export function OpenerOverlay({ showOpener, openerClosing, onClose }: OpenerOverlayProps) {
   if (!showOpener) return null
 
@@ -23,10 +30,25 @@ export function OpenerOverlay({ showOpener, openerClosing, onClose }: OpenerOver
 
       <div className="max-w-5xl text-center">
         <h2 className="mt-5 text-[clamp(34px,6.8vw,102px)] font-extrabold leading-[0.92] tracking-[-0.045em] text-white">
-          <span className="opener-chunk block [animation-delay:40ms]">67% руководителей</span>
-          <span className="opener-chunk block [animation-delay:200ms]">не внедряют стратегию</span>
-          <span className="opener-chunk block [animation-delay:360ms]">без управленческой</span>
-          <span className="opener-chunk block text-[#e7d2ad] [animation-delay:520ms]">базы.</span>
+          {openerLines.map((line, lineIndex) => (
+            <span key={`${line.join("-")}-${lineIndex}`} className="block">
+              {line.map((word, wordIndex) => {
+                const orderIndex = openerLines.slice(0, lineIndex).reduce((total, row) => total + row.length, 0) + wordIndex
+                const isAccentWord = lineIndex === openerLines.length - 1
+
+                return (
+                  <span
+                    key={`${word}-${lineIndex}-${wordIndex}`}
+                    className={`opener-word inline-block ${isAccentWord ? "text-[#e7d2ad]" : ""}`}
+                    style={{ animationDelay: `${40 + orderIndex * 55}ms` }}
+                  >
+                    {word}
+                    {wordIndex < line.length - 1 ? "\u00A0" : ""}
+                  </span>
+                )
+              })}
+            </span>
+          ))}
         </h2>
       </div>
     </div>

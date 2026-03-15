@@ -22,6 +22,7 @@ import {
   gptMessages,
 } from "./landing/data"
 import { type RoleKey } from "./landing/types"
+import { TeamGapSection } from "./landing/sections/TeamGapSection"
 import {
   BusinessModelSection,
   CoursesSection,
@@ -32,7 +33,6 @@ import {
   LearningSection,
   OpenerOverlay,
   StrategySection,
-  TeamGapSection,
   TopTopicsBar,
   TrustedSection,
 } from "./landing/sections"
@@ -49,6 +49,8 @@ export function EducationLanding() {
   const [morphIndex, setMorphIndex] = useState(0)
   const [selectedRole, setSelectedRole] = useState<RoleKey>("team")
   const [strategyProgress, setStrategyProgress] = useState(0)
+  const [strategyCueDismissed, setStrategyCueDismissed] = useState(false)
+  const [strategySequenceCompleted, setStrategySequenceCompleted] = useState(false)
   const cardRef = useRef<HTMLDivElement | null>(null)
   const strategySectionRef = useRef<HTMLDivElement | null>(null)
   const strategyProgressRef = useRef(0)
@@ -116,6 +118,13 @@ export function EducationLanding() {
   }, [strategyProgress])
 
   useEffect(() => {
+    if (strategyCueDismissed) return
+    if (strategySequenceCompleted || strategyProgress >= 0.84) {
+      setStrategyCueDismissed(true)
+    }
+  }, [strategyCueDismissed, strategyProgress, strategySequenceCompleted])
+
+  useEffect(() => {
     const container = cardRef.current
     const section = strategySectionRef.current
     if (!container || !section) return
@@ -133,6 +142,7 @@ export function EducationLanding() {
       strategyActivatedRef.current = true
       strategyIntroAnimatingRef.current = false
       strategyMinimumProgressRef.current = 1
+      setStrategySequenceCompleted(true)
 
       if (strategyIntroFrameRef.current) {
         window.cancelAnimationFrame(strategyIntroFrameRef.current)
@@ -191,7 +201,7 @@ export function EducationLanding() {
         return
       }
 
-      if (rawProgress >= 0.995 && strategyActivatedRef.current) {
+      if (rawProgress >= 0.86 && strategyActivatedRef.current) {
         finishStrategySequence()
         return
       }
@@ -234,6 +244,8 @@ export function EducationLanding() {
     }
   }, [])
 
+  const showStrategyScrollCue = !strategyCueDismissed && strategyProgress >= 0.01 && strategyProgress < 0.84
+
   return (
     <>
       <OpenerOverlay showOpener={showOpener} openerClosing={openerClosing} onClose={closeOpener} />
@@ -251,6 +263,7 @@ export function EducationLanding() {
               heroWordSecondary={heroWordSecondary}
               morphWord={morphResultWords[morphIndex]}
               onScrollToCourses={scrollToCourses}
+              revealEducationWord={!showOpener}
             />
 
             <BusinessModelSection />
@@ -271,6 +284,8 @@ export function EducationLanding() {
               strategyProgress={strategyProgress}
               steps={strategyJourneySteps}
               onScrollToCourses={scrollToCourses}
+              showScrollCue={showStrategyScrollCue}
+              compactAfterProgress={strategySequenceCompleted}
             />
 
             <LearningSection

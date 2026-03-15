@@ -25,7 +25,7 @@ export function TrustedSection({
             return (
               <div
                 key={logo.src}
-                className="flex h-[72px] items-center justify-center rounded-[12px] border border-white/12 bg-[#0b0b0b] px-3"
+                className="group flex h-[72px] items-center justify-center rounded-[12px] border border-white/12 bg-[#0b0b0b] px-3"
               >
                 <Image
                   src={logo.src}
@@ -33,7 +33,7 @@ export function TrustedSection({
                   width={logo.width}
                   height={logo.height}
                   unoptimized
-                  className={`${logo.sizeClass} w-auto object-contain opacity-95 ${
+                  className={`${logo.sizeClass} w-auto object-contain opacity-95 transition-transform duration-300 ease-out will-change-transform motion-reduce:transform-none group-hover:scale-[0.96] ${
                     isOkko ? "opacity-100 brightness-[1.45] contrast-[1.18] drop-shadow-[0_0_12px_rgba(255,255,255,0.12)]" : ""
                   }`}
                 />
