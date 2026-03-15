@@ -94,16 +94,16 @@ export const HeroCard = memo(function HeroCard({ cardRef, itemRefs, highlights, 
       >
       <div id="mintush-hero" className="relative h-[calc(100vh-1.5rem)] sm:h-[calc(100vh-2rem)] md:h-[calc(100vh-3rem)] flex-none overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute left-1/2 top-[60%] h-[54%] w-[90%] -translate-x-1/2 -translate-y-1/2 md:hidden">
+          <div className="absolute left-1/2 top-[64%] h-[50%] w-[88%] -translate-x-1/2 -translate-y-1/2 md:hidden">
             <Image
               src="/profile.png"
               alt="Олег Минтуш"
               fill
               priority
-              className="object-contain object-center brightness-[1.18] contrast-[1.02] saturate-[0.92] opacity-100 drop-shadow-[0_18px_30px_rgba(0,0,0,0.34)]"
+              className="object-contain object-center brightness-[1.2] contrast-[1.03] saturate-[0.94] opacity-100 drop-shadow-[0_24px_34px_rgba(0,0,0,0.42)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/16 to-[#040404]/72" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_52%_34%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.22)_54%,rgba(0,0,0,0.74)_100%)]" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/10 to-[#040404]/58" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.18)_52%,rgba(0,0,0,0.68)_100%)]" />
           </div>
           <div className="absolute right-0 top-[16%] hidden h-[100%] w-[51%] min-w-[420px] origin-bottom scale-[1.18] md:block">
             <Image

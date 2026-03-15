@@ -48,6 +48,7 @@ export function EducationLanding() {
   const [openerClosing, setOpenerClosing] = useState(false)
   const [morphIndex, setMorphIndex] = useState(0)
   const [selectedRole, setSelectedRole] = useState<RoleKey>("team")
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false)
   const [strategyProgress, setStrategyProgress] = useState(0)
   const [strategyCueDismissed, setStrategyCueDismissed] = useState(false)
   const [strategySequenceCompleted, setStrategySequenceCompleted] = useState(false)
@@ -100,6 +101,18 @@ export function EducationLanding() {
   }
 
   useEffect(() => {
+    const media = window.matchMedia("(min-width: 768px)")
+    const syncViewport = () => setIsDesktopViewport(media.matches)
+
+    syncViewport()
+    media.addEventListener("change", syncViewport)
+
+    return () => {
+      media.removeEventListener("change", syncViewport)
+    }
+  }, [])
+
+  useEffect(() => {
     const ticker = window.setInterval(() => {
       setMorphIndex((prev) => (prev + 1) % morphResultWords.length)
     }, 1800)
@@ -125,6 +138,8 @@ export function EducationLanding() {
   }, [strategyCueDismissed, strategyProgress, strategySequenceCompleted])
 
   useEffect(() => {
+    if (!isDesktopViewport) return
+
     const container = cardRef.current
     const section = strategySectionRef.current
     if (!container || !section) return
@@ -242,9 +257,10 @@ export function EducationLanding() {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
     }
-  }, [])
+  }, [isDesktopViewport])
 
-  const showStrategyScrollCue = !strategyCueDismissed && strategyProgress >= 0.01 && strategyProgress < 0.84
+  const showStrategyScrollCue =
+    isDesktopViewport && !strategyCueDismissed && strategyProgress >= 0.01 && strategyProgress < 0.84
 
   return (
     <>

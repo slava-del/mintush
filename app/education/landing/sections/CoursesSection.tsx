@@ -26,7 +26,7 @@ export function CoursesSection({ courses }: CoursesSectionProps) {
               </div>
               <p className="mt-1 text-[17px] leading-[1.35] text-white/68 md:h-[170px] lg:h-[156px]">{course.description}</p>
 
-              <div className="mt-5 md:h-[92px]">
+              <div className="mt-12 md:mt-5 md:h-[92px]">
                 <p className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad]">Включает в себя:</p>
                 <div className="mt-2 grid gap-2">
                   {course.items.map((item) => (
@@ -39,7 +39,7 @@ export function CoursesSection({ courses }: CoursesSectionProps) {
 
               <Link
                 href={course.href}
-                className="group mt-auto inline-flex w-fit items-center gap-2 rounded-[14px] border border-[#e7d2ad]/45 px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad] hover:text-black"
+                className="group mt-6 inline-flex w-fit items-center gap-2 rounded-[14px] border border-[#e7d2ad]/45 px-5 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad] hover:text-black md:mt-auto"
               >
                 Посмотреть подробнее
                 <span
