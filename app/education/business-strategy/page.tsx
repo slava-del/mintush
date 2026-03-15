@@ -123,7 +123,7 @@ export default function BusinessStrategyPage() {
 
                     return (
                       <article key={point} className={`min-h-[210px] px-7 py-7 md:min-h-[240px] md:px-9 md:py-8 ${lineClass} ${rowClass}`}>
-                        <p className="break-words text-[clamp(34px,3.6vw,62px)] font-extrabold leading-[0.96] tracking-[-0.025em] text-[#EDEDED] uppercase">
+                        <p className="break-normal text-[clamp(30px,3vw,56px)] font-extrabold leading-[0.96] tracking-[-0.025em] text-[#EDEDED] uppercase">
                           {title}
                         </p>
                         <p className="mt-4 max-w-[30ch] text-[13px] font-semibold uppercase leading-[1.45] tracking-[0.18em] text-[#EDEDED]/74 md:text-[14px]">

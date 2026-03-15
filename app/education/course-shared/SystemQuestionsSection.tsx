@@ -31,15 +31,15 @@ export function SystemQuestionsSection({
           {questions.map((question, index) => (
             <article
               key={question.id}
-              className={`relative overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(31,31,39,0.92)_0%,rgba(12,12,14,0.96)_54%,rgba(17,20,43,0.92)_78%,rgba(33,49,189,0.38)_100%)] px-6 pb-4 pt-8 ${
+              className={`relative flex h-full flex-col overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(14,14,16,0.98)_0%,rgba(8,8,10,0.98)_100%)] px-6 pb-4 pt-8 ${
                 index === 1 ? "lg:translate-y-8" : ""
               }`}
             >
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(circle_at_50%_100%,rgba(71,108,255,0.34)_0%,rgba(71,108,255,0.18)_34%,rgba(71,108,255,0.08)_56%,rgba(71,108,255,0)_84%)]" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-[-28%] h-56 bg-[radial-gradient(ellipse_at_50%_100%,rgba(72,112,255,0.62)_0%,rgba(72,112,255,0.34)_36%,rgba(72,112,255,0.14)_60%,rgba(72,112,255,0)_82%)]" />
               <p className="relative mx-auto max-w-[20ch] text-center text-[clamp(24px,2.2vw,42px)] font-bold leading-[1.16] tracking-[-0.02em] text-[#EDEDED]">
                 {question.text}
               </p>
-              <div className="relative mt-6 flex justify-center">
+              <div className="relative mt-auto flex min-h-[170px] items-end justify-center pt-6">
                 <AnimatedStrategyQuestionVisual id={question.id} />
               </div>
             </article>

@@ -160,15 +160,15 @@ export const strategyFaqItems: FaqItem[] = [
 export const strategyMonthlyQuestions: MonthlyQuestion[] = [
   {
     id: "direction",
-    text: "мы всё ещё идём туда, куда выбрали",
+    text: "всё ещё идём туда, куда выбрали",
   },
   {
     id: "metrics",
-    text: "мы видим прогресс в ключевых метриках",
+    text: "видим прогресс в ключевых метриках",
   },
   {
     id: "decisions",
-    text: "мы принимаем решения и корректируем планы под изменения рынка",
+    text: "корректируем планы под изменения рынка",
   },
 ]
 
