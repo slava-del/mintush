@@ -1,0 +1,41 @@
+.track {
+  will-change: transform;
+}
+
+.left {
+  animation-name: boardRiverLeft;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.right {
+  animation-name: boardRiverRight;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes boardRiverLeft {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes boardRiverRight {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .left,
+  .right {
+    animation: none !important;
+    transform: none !important;
+  }
+}
