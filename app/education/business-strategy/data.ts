@@ -1,4 +1,5 @@
 import type {
+  EnrollmentPanelCopy,
   FaqItem,
   FormatHighlight,
   MentorStat,
@@ -85,6 +86,7 @@ export const strategyTariffCards: TariffCard[] = [
   {
     id: "basic",
     title: "БАЗОВЫЙ",
+    modalTitle: "Базовый",
     price: "$…",
     intro: "Для самостоятельной работы",
     includes: ["4 руководства + 6 вебинаров"],
@@ -102,6 +104,7 @@ export const strategyTariffCards: TariffCard[] = [
   {
     id: "support",
     title: "С ПОДДЕРЖКОЙ",
+    modalTitle: "С поддержкой",
     price: "$…",
     intro: "Если важно свериться с экспертом и не застрять",
     includes: ["всё из «Базового тарифа»", "шаблон стратегии", "индивидуальная консультация с экспертом курса на 30 минут"],
@@ -120,6 +123,7 @@ export const strategyTariffCards: TariffCard[] = [
   {
     id: "turnkey",
     title: "СТРАТЕГИЯ ПОД КЛЮЧ",
+    modalTitle: "Под ключ",
     price: "$…",
     intro: "Если нужен быстрый результат и готовая стратегия",
     includes: ["всё из тарифа «С поддержкой»", "помощь эксперта в сборке стратегии вашего бизнеса"],
@@ -135,6 +139,15 @@ export const strategyTariffCards: TariffCard[] = [
     glow: "0 0 0 1px rgba(224,190,132,0.08) inset",
   },
 ]
+
+export const strategyEnrollmentPanel: EnrollmentPanelCopy = {
+  programTag: "Практический курс",
+  programName: "Стратегия бизнеса на 12 месяцев",
+  summary: "Выберите пакет участия, оставьте контакты, и мы поможем зайти в курс с тем уровнем сопровождения, который нужен вашему бизнесу сейчас.",
+  note: "Формат можно подобрать под ваш темп, глубину проработки и текущую задачу команды.",
+  quote: "«Стратегия должна переходить в операционную систему управления, а не оставаться презентацией.»",
+  helperText: "После отправки мы свяжемся с вами в Telegram или по email и согласуем следующий шаг.",
+}
 
 export const strategyFaqItems: FaqItem[] = [
   {

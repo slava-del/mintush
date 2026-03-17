@@ -22,24 +22,19 @@ export function AfterCourseSection({ eyebrow, title, description, cards }: After
       <div className="mt-10 grid gap-4 md:grid-cols-2 xl:gap-5">
         {cards.map((card) => {
           const isFinal = card.id === "05"
-          const numberTone = card.id === "02" || card.id === "03" ? "text-[#c7d5ff]/82" : "text-[#e7d2ad]/78"
 
           return (
             <article
               key={card.id}
               className={`group relative overflow-hidden rounded-[22px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.018),rgba(255,255,255,0.008))] p-6 shadow-[0_18px_46px_rgba(0,0,0,0.18)] ${card.className ?? ""} ${
-                isFinal ? "md:min-h-[320px] md:px-8 md:py-7" : "min-h-[272px]"
+                isFinal ? "md:min-h-[300px] md:px-8 md:py-7" : "min-h-[252px]"
               }`}
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(255,255,255,0.05),rgba(255,255,255,0)_40%)]" />
 
               {isFinal ? (
                 <div className="relative h-full">
-                  <div className="inline-flex items-center gap-3">
-                    <span className={`text-[12px] font-semibold uppercase tracking-[0.18em] ${numberTone}`}>{card.id}</span>
-                    <span className="h-px w-16 bg-[linear-gradient(90deg,rgba(231,210,173,0.22),rgba(231,210,173,0))]" />
-                  </div>
-                  <div className="mt-8 grid gap-y-4 md:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] md:gap-x-8 md:gap-y-3">
+                  <div className="mt-6 grid gap-y-4 md:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] md:gap-x-8 md:gap-y-3">
                     <h3 className="max-w-[56ch] text-[34px] font-extrabold leading-[1.02] tracking-[-0.028em] text-[#EDEDED] md:text-[42px]">
                       {card.title}
                     </h3>
@@ -52,12 +47,7 @@ export function AfterCourseSection({ eyebrow, title, description, cards }: After
                 </div>
               ) : (
                 <div className="relative flex h-full flex-col">
-                  <div className="inline-flex items-center gap-3">
-                    <span className={`text-[12px] font-semibold uppercase tracking-[0.18em] ${numberTone}`}>{card.id}</span>
-                    <span className="h-px w-16 bg-[linear-gradient(90deg,rgba(231,210,173,0.22),rgba(231,210,173,0))]" />
-                  </div>
-
-                  <div className="mt-8 max-w-[34ch]">
+                  <div className="mt-6 max-w-[34ch]">
                     <h3 className="text-[29px] font-extrabold leading-[1.02] tracking-[-0.028em] text-[#EDEDED] md:text-[34px]">
                       {card.title}
                     </h3>
@@ -66,7 +56,7 @@ export function AfterCourseSection({ eyebrow, title, description, cards }: After
                     </p>
                   </div>
 
-                  <div className="mt-auto ml-auto w-full max-w-[460px] pt-8 opacity-95">
+                  <div className="mt-auto ml-auto w-full max-w-[460px] pt-6 opacity-95">
                     <AnimatedOutcomeCardVisual id={card.id} size="default" />
                   </div>
                 </div>

@@ -29,6 +29,7 @@ export type FormatHighlight = {
 export type TariffCard = {
   id: string
   title: string
+  modalTitle?: string
   price: string
   intro: string
   includes: string[]
@@ -43,6 +44,15 @@ export type TariffCard = {
   buttonFilled: boolean
   glow: string
   isFeatured?: boolean
+}
+
+export type EnrollmentPanelCopy = {
+  programTag: string
+  programName: string
+  summary: string
+  note: string
+  quote: string
+  helperText: string
 }
 
 export type FaqItem = {

@@ -1,4 +1,7 @@
+"use client"
+
 import { AnimatedStrategyQuestionVisual } from "./AnimatedStrategyQuestionVisual"
+import { useCourseEnrollment } from "./CourseEnrollmentProvider"
 import type { MonthlyQuestion } from "./types"
 
 type SystemQuestionsSectionProps = {
@@ -16,6 +19,8 @@ export function SystemQuestionsSection({
   questions,
   ctaText,
 }: SystemQuestionsSectionProps) {
+  const { openEnrollment, tariffCards } = useCourseEnrollment()
+
   return (
     <section className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
       <article className="relative overflow-hidden rounded-[24px] border border-[#e7d2ad]/20 bg-[linear-gradient(180deg,#050505_0%,#06060a_58%,#0c1235_100%)] p-8 md:p-10 lg:p-12">
@@ -48,24 +53,22 @@ export function SystemQuestionsSection({
 
         <p className="mt-12 text-center text-[18px] font-semibold leading-[1.33] text-[#e7d2ad]">{ctaText}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a
-            href="#contact"
-            className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED] transition hover:border-[#e7d2ad]"
-          >
-            Купить «Базовый» — $…
-          </a>
-          <a
-            href="#contact"
-            className="rounded-[12px] border border-[#e7d2ad]/55 bg-[#e7d2ad]/16 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/24"
-          >
-            Купить «С поддержкой» — $…
-          </a>
-          <a
-            href="#contact"
-            className="rounded-[12px] border border-[#e7d2ad]/65 bg-[#e7d2ad]/20 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#e7d2ad] transition hover:bg-[#e7d2ad]/32"
-          >
-            Купить «Под ключ» — $…
-          </a>
+          {tariffCards.map((tariff) => (
+            <button
+              key={tariff.id}
+              type="button"
+              onClick={() => openEnrollment(tariff.id)}
+              className={`rounded-[12px] border px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f8df9]/38 ${
+                tariff.buttonFilled
+                  ? "border-[#e7d2ad]/55 bg-[#e7d2ad]/16 text-[#e7d2ad] hover:bg-[#e7d2ad]/24"
+                  : tariff.isFeatured
+                    ? "border-[#e7d2ad]/65 bg-[#e7d2ad]/20 text-[#e7d2ad] hover:bg-[#e7d2ad]/32"
+                    : "border-[#e7d2ad]/45 text-[#EDEDED] hover:border-[#e7d2ad]"
+              }`}
+            >
+              Купить «{tariff.title}» — {tariff.price}
+            </button>
+          ))}
           <a
             href="#free-webinar"
             className="rounded-[12px] border border-[#e7d2ad]/45 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#EDEDED]/92 transition hover:border-[#e7d2ad]"

@@ -1,10 +1,15 @@
+"use client"
+
 import type { TariffCard } from "./types"
+import { useCourseEnrollment } from "./CourseEnrollmentProvider"
 
 type TariffsSectionProps = {
   tariffCards: TariffCard[]
 }
 
 export function TariffsSection({ tariffCards }: TariffsSectionProps) {
+  const { openEnrollment } = useCourseEnrollment()
+
   return (
     <section id="tariffs" className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
       <h2 className="text-[34px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[48px]">Тарифы</h2>
@@ -12,7 +17,17 @@ export function TariffsSection({ tariffCards }: TariffsSectionProps) {
         {tariffCards.map((tariff) => (
           <article
             key={tariff.id}
-            className={`relative flex h-full flex-col overflow-hidden rounded-[18px] border p-6 transition ${
+            role="button"
+            tabIndex={0}
+            aria-label={`Выбрать пакет ${tariff.title}`}
+            onClick={() => openEnrollment(tariff.id)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault()
+                openEnrollment(tariff.id)
+              }
+            }}
+            className={`relative flex h-full cursor-pointer flex-col overflow-hidden rounded-[18px] border p-6 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f8df9]/38 ${
               tariff.isFeatured ? "translate-y-[-2px]" : ""
             }`}
             style={{
@@ -43,8 +58,7 @@ export function TariffsSection({ tariffCards }: TariffsSectionProps) {
               ))}
             </div>
             <div className="mt-auto pt-8">
-              <a
-                href="#contact"
+              <span
                 className={`inline-flex w-full translate-y-0 items-center justify-center rounded-[12px] border px-4 py-2.5 text-center text-[13px] font-semibold uppercase tracking-[0.08em] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(0,0,0,0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e7d2ad]/42 ${
                   tariff.buttonFilled ? "hover:brightness-105" : "hover:bg-white/6"
                 }`}
@@ -55,7 +69,7 @@ export function TariffsSection({ tariffCards }: TariffsSectionProps) {
                 }}
               >
                 {tariff.button}
-              </a>
+              </span>
             </div>
           </article>
         ))}

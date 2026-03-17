@@ -1,5 +1,6 @@
 import type {
   BlueprintModule,
+  EnrollmentPanelCopy,
   FaqItem,
   FormatHighlight,
   MentorStat,
@@ -138,6 +139,7 @@ export const managementTariffCards: TariffCard[] = [
   {
     id: "basic",
     title: "БАЗОВЫЙ",
+    modalTitle: "Базовый",
     price: "$…",
     intro: "Для самостоятельной сборки бизнес-системы",
     includes: ["4 практических руководства", "4 вебинара"],
@@ -155,6 +157,7 @@ export const managementTariffCards: TariffCard[] = [
   {
     id: "support",
     title: "С ПОДДЕРЖКОЙ",
+    modalTitle: "С поддержкой",
     price: "$…",
     intro: "Если важно свериться с экспертом и быстрее внедрить систему",
     includes: [
@@ -177,6 +180,7 @@ export const managementTariffCards: TariffCard[] = [
   {
     id: "turnkey",
     title: "ПОД КЛЮЧ",
+    modalTitle: "Под ключ",
     price: "$…",
     intro: "Если нужен быстрый результат и сборка системы вместе с экспертом",
     includes: ["всё из тарифа «С поддержкой»", "помощь эксперта в адаптации модели под ваш бизнес"],
@@ -192,6 +196,15 @@ export const managementTariffCards: TariffCard[] = [
     glow: "0 0 0 1px rgba(224,190,132,0.08) inset",
   },
 ]
+
+export const managementEnrollmentPanel: EnrollmentPanelCopy = {
+  programTag: "Практический курс",
+  programName: "Управление бизнесом",
+  summary: "Выберите пакет участия, оставьте контакты, и мы поможем зайти в курс в том формате, который лучше всего подходит под текущий этап вашей компании.",
+  note: "Если задача в быстром внедрении, внутри можно сразу переключиться на пакет с более плотной поддержкой.",
+  quote: "«Управление начинается там, где бизнес перестаёт зависеть от постоянного ручного участия собственника.»",
+  helperText: "После отправки мы свяжемся с вами в Telegram или по email и согласуем следующий шаг.",
+}
 
 export const managementFaqItems: FaqItem[] = [
   {

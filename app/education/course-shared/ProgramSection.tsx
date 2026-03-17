@@ -6,12 +6,24 @@ type ProgramSectionProps = {
   formatHighlights: FormatHighlight[]
   summary: string
   sectionId?: string
+  withCard?: boolean
 }
 
-export function ProgramSection({ guides, webinars, formatHighlights, summary, sectionId = "program" }: ProgramSectionProps) {
+export function ProgramSection({
+  guides,
+  webinars,
+  formatHighlights,
+  summary,
+  sectionId = "program",
+  withCard = true,
+}: ProgramSectionProps) {
+  const wrapperClassName = withCard
+    ? "rounded-[24px] bg-[linear-gradient(180deg,rgba(9,9,9,0.92),rgba(7,7,7,0.88))] p-8 md:p-10"
+    : ""
+
   return (
     <section id={sectionId} className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
-      <article className="rounded-[24px] bg-[linear-gradient(180deg,rgba(9,9,9,0.92),rgba(7,7,7,0.88))] p-8 md:p-10">
+      <div className={wrapperClassName}>
         <div className="max-w-[920px]">
           <h2 className="text-[35px] font-extrabold leading-[1.02] tracking-[-0.03em] text-[#EDEDED] md:text-[48px]">Что внутри</h2>
           <p className="mt-3 text-[17px] leading-[1.45] text-[#EDEDED]/70 md:text-[19px]">
@@ -62,7 +74,7 @@ export function ProgramSection({ guides, webinars, formatHighlights, summary, se
             ))}
           </div>
         </div>
-      </article>
+      </div>
     </section>
   )
 }

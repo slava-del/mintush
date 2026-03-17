@@ -69,35 +69,47 @@ export function EducationLanding() {
     window.setTimeout(() => setShowOpener(false), 450)
   }
 
-  const scrollToElement = (target: HTMLElement | null) => {
+  type ScrollAlign = "start" | "center"
+
+  const scrollToElement = (target: HTMLElement | null, align: ScrollAlign = "start") => {
     const container = cardRef.current
     if (!target) return
     if (!container) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" })
+      target.scrollIntoView({ behavior: "smooth", block: align === "center" ? "center" : "start" })
       return
     }
 
     const canScrollContainer = container.scrollHeight > container.clientHeight + 8
 
     if (canScrollContainer) {
-      container.scrollTo({ top: Math.max(target.offsetTop - 24, 0), behavior: "smooth" })
+      const containerRect = container.getBoundingClientRect()
+      const targetRect = target.getBoundingClientRect()
+      const relativeTop = targetRect.top - containerRect.top + container.scrollTop
+      const scrollTopTarget =
+        align === "center"
+          ? relativeTop - (container.clientHeight - targetRect.height) / 2
+          : relativeTop - 24
+
+      container.scrollTo({ top: Math.max(scrollTopTarget, 0), behavior: "smooth" })
       return
     }
 
-    const top = target.getBoundingClientRect().top + window.scrollY - 24
+    const targetRect = target.getBoundingClientRect()
+    const targetTop = targetRect.top + window.scrollY
+    const top = align === "center" ? targetTop - (window.innerHeight - targetRect.height) / 2 : targetTop - 24
     window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" })
   }
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId: string, align: ScrollAlign = "start") => {
     const container = cardRef.current
     const section =
       container?.querySelector<HTMLElement>(`[data-section-id="${sectionId}"]`) ??
       document.querySelector<HTMLElement>(`[data-section-id="${sectionId}"]`)
-    scrollToElement(section)
+    scrollToElement(section, align)
   }
 
   const scrollToCourses = () => {
-    scrollToSection("courses")
+    scrollToSection("courses", "center")
   }
 
   useEffect(() => {
@@ -301,7 +313,7 @@ export function EducationLanding() {
               steps={strategyJourneySteps}
               onScrollToCourses={scrollToCourses}
               showScrollCue={showStrategyScrollCue}
-              compactAfterProgress={strategySequenceCompleted}
+              compactAfterProgress={false}
             />
 
             <LearningSection

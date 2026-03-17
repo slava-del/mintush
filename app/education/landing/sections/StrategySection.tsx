@@ -261,8 +261,8 @@ export function StrategySection({
         <div
           className="hidden transition-[height,min-height] duration-700 ease-out md:block"
           style={{
-            height: compactAfterProgress ? "58vh" : "150vh",
-            minHeight: compactAfterProgress ? "360px" : "900px",
+            height: compactAfterProgress ? "46vh" : "94vh",
+            minHeight: compactAfterProgress ? "280px" : "560px",
           }}
         />
       </div>

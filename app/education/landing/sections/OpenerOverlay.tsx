@@ -7,8 +7,7 @@ type OpenerOverlayProps = {
 const openerLines = [
   ["67%", "руководителей"],
   ["не", "внедряют", "стратегию"],
-  ["без", "управленческой"],
-  ["базы."],
+  ["без", "управленческой", "базы."],
 ]
 
 export function OpenerOverlay({ showOpener, openerClosing, onClose }: OpenerOverlayProps) {
@@ -28,25 +27,26 @@ export function OpenerOverlay({ showOpener, openerClosing, onClose }: OpenerOver
         Далее
       </button>
 
-      <div className="max-w-5xl text-center">
-        <h2 className="mt-5 text-[clamp(34px,6.8vw,102px)] font-extrabold leading-[0.92] tracking-[-0.045em] text-white">
+      <div className="mx-auto w-full max-w-5xl">
+        <h2 className="opener-whole mt-5 flex flex-col items-center text-center text-[clamp(34px,6.8vw,102px)] font-extrabold leading-[0.92] tracking-[-0.045em] text-white">
           {openerLines.map((line, lineIndex) => (
-            <span key={`${line.join("-")}-${lineIndex}`} className="block">
-              {line.map((word, wordIndex) => {
-                const orderIndex = openerLines.slice(0, lineIndex).reduce((total, row) => total + row.length, 0) + wordIndex
-                const isAccentWord = lineIndex === openerLines.length - 1
+            <span key={`${line.join("-")}-${lineIndex}`} className="flex w-full justify-center">
+              <span className="inline-flex flex-wrap items-baseline justify-center gap-x-[0.16em]">
+                {line.map((word, wordIndex) => {
+                  const orderIndex = openerLines.slice(0, lineIndex).reduce((total, row) => total + row.length, 0) + wordIndex
+                  const isAccentWord = word === "базы."
 
-                return (
-                  <span
-                    key={`${word}-${lineIndex}-${wordIndex}`}
-                    className={`opener-word inline-block ${isAccentWord ? "text-[#e7d2ad]" : ""}`}
-                    style={{ animationDelay: `${40 + orderIndex * 55}ms` }}
-                  >
-                    {word}
-                    {wordIndex < line.length - 1 ? "\u00A0" : ""}
-                  </span>
-                )
-              })}
+                  return (
+                    <span
+                      key={`${word}-${lineIndex}-${wordIndex}`}
+                      className={`opener-word inline-block ${isAccentWord ? "text-[#e7d2ad]" : ""}`}
+                      style={{ animationDelay: `${40 + orderIndex * 55}ms` }}
+                    >
+                      {word}
+                    </span>
+                  )
+                })}
+              </span>
             </span>
           ))}
         </h2>

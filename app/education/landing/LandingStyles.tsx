@@ -7,7 +7,7 @@ export function LandingStyles() {
       }
 
       .strategy-stage {
-        top: calc((100vh - 1.5rem - 60vh) / 2);
+        top: 1rem;
       }
 
       .hero-letter {
@@ -41,6 +41,12 @@ export function LandingStyles() {
         opacity: 0;
         transform: translateY(20px) scale(0.96);
         animation: openerWordIn 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .opener-whole {
+        opacity: 0;
+        transform: translateY(14px);
+        animation: openerWholeIn 420ms cubic-bezier(0.22, 1, 0.36, 1) 80ms forwards;
       }
 
       .gpt-stream {
@@ -151,6 +157,19 @@ export function LandingStyles() {
         }
       }
 
+      @keyframes openerWholeIn {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+          filter: blur(2px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
       @keyframes gptStreamFlow {
         from {
           transform: translateY(0);
@@ -215,6 +234,7 @@ export function LandingStyles() {
         .morph-word,
         .opener-chunk,
         .opener-word,
+        .opener-whole,
         .gpt-stream,
         .system-block,
         .strategy-scroll-cue,
@@ -231,13 +251,13 @@ export function LandingStyles() {
 
       @media (min-width: 640px) {
         .strategy-stage {
-          top: calc((100vh - 2rem - 60vh) / 2);
+          top: 1.25rem;
         }
       }
 
       @media (min-width: 768px) {
         .strategy-stage {
-          top: calc((100vh - 3rem - 60vh) / 2);
+          top: 1.5rem;
         }
       }
 
