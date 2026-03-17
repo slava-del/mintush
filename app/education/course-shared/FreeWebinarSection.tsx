@@ -1,7 +1,8 @@
 import Image from "next/image"
 import { LeadForm } from "@/components/lead-form"
-
 export function FreeWebinarSection() {
+  const form = <LeadForm variant="dark" layout="inline" submitLabel="ПОЛУЧИТЬ ДОСТУП" className="mt-8 max-w-none" />
+
   return (
     <section id="free-webinar" className="mx-auto max-w-[1380px] px-6 pb-14 md:px-12 md:pb-16">
       <article className="relative overflow-hidden rounded-[24px] border border-[#e7d2ad]/24 bg-[linear-gradient(108deg,#060606_0%,#070707_52%,#090b16_100%)] p-8 md:p-10 lg:p-12">
@@ -12,7 +13,7 @@ export function FreeWebinarSection() {
           <div className="max-w-[780px]">
             <div className="flex flex-wrap items-center gap-3">
               <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#e7d2ad]/84">Бесплатный вход</p>
-              <span className="inline-flex items-center rounded-[10px] bg-[#ff2d2d] px-3 py-1 text-[18px] font-extrabold uppercase leading-none tracking-[0.02em] text-white">
+              <span className="inline-flex items-center rounded-[9px] bg-[#ff2d2d] px-2.5 py-0.5 text-[14px] font-extrabold uppercase leading-none tracking-[0.02em] text-white">
                 LIVE
               </span>
             </div>
@@ -22,9 +23,7 @@ export function FreeWebinarSection() {
             <p className="mt-5 max-w-[60ch] text-[19px] leading-[1.43] text-[#EDEDED]/80">
               Оставьте контакты — пришлём доступ на почту или в Telegram.
             </p>
-            <div className="mt-8 rounded-[18px] border border-[#e7d2ad]/22 bg-[linear-gradient(180deg,rgba(12,12,12,0.72),rgba(8,8,8,0.94))] p-5 md:p-6">
-              <LeadForm variant="dark" layout="inline" submitLabel="ПОЛУЧИТЬ ДОСТУП" className="max-w-none" />
-            </div>
+            {form}
           </div>
 
           <div className="relative min-h-[300px] sm:min-h-[400px] lg:min-h-[500px]">
