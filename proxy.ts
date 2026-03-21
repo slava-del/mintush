@@ -7,7 +7,7 @@ const ALLOWED_PATHS = new Set([
   "/education",
   "/education/business-management",
   "/education/business-strategy",
-  "/__404__",
+  "/maintenance",
 ]);
 
 function normalizePathname(pathname: string) {
@@ -25,7 +25,7 @@ export function proxy(request: NextRequest) {
   }
 
   const url = request.nextUrl.clone();
-  url.pathname = "/__404__";
+  url.pathname = "/maintenance";
   return NextResponse.rewrite(url);
 }
 
